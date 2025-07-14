@@ -15,6 +15,11 @@ import {
   type AskVetAssistantInput,
   type AskVetAssistantOutput,
 } from '@/ai/flows/ask-vet-assistant';
+import {
+    generatePetImage,
+    type GeneratePetImageInput,
+    type GeneratePetImageOutput,
+} from '@/ai/flows/generate-pet-image';
 
 export async function getPetRecommendationsAction(
   input: PetPreferencesInput
@@ -64,5 +69,20 @@ export async function askVetAssistantAction(
     } catch (error) {
         console.error(error);
         return { result: null, error: 'An unexpected error occurred while getting an answer.' };
+    }
+}
+
+export async function generatePetImageAction(
+    input: GeneratePetImageInput
+): Promise<{ image: GeneratePetImageOutput | null; error: string | null }> {
+    try {
+        const result = await generatePetImage(input);
+        if (!result || !result.imageUrl) {
+            return { image: null, error: 'Could not generate an image.' };
+        }
+        return { image: result, error: null };
+    } catch (error) {
+        console.error(error);
+        return { image: null, error: 'An unexpected error occurred while generating the image.' };
     }
 }

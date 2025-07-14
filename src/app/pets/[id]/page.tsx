@@ -4,10 +4,11 @@ import { notFound } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { PawPrint, Heart, Stethoscope, Bone } from 'lucide-react';
+import { PawPrint, Heart, Stethoscope, Bone, Camera } from 'lucide-react';
 import { InquiryForm } from '@/components/inquiry-form';
 import { GenerateBio } from '@/components/generate-bio';
 import { VetAssistant } from '@/components/vet-assistant';
+import { GenerateImage } from '@/components/generate-image';
 
 export async function generateStaticParams() {
   return pets.map((pet) => ({
@@ -40,6 +41,9 @@ export default function PetDetailPage({ params }: { params: { id: string } }) {
                   />
                 </CarouselItem>
               ))}
+               <CarouselItem>
+                 <GenerateImage pet={pet} />
+               </CarouselItem>
             </CarouselContent>
             <CarouselPrevious className="left-4" />
             <CarouselNext className="right-4" />
