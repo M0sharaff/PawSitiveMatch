@@ -28,7 +28,7 @@ export async function generatePetImage(input: GeneratePetImageInput): Promise<Ge
     model: 'googleai/gemini-2.0-flash-preview-image-generation',
     prompt: `A high-quality, photo-realistic image of a ${input.breed} ${input.species}. ${input.prompt || 'The pet should be in a happy, friendly pose, suitable for an adoption website.'}`,
     config: {
-      responseModalities: ['IMAGE'],
+      responseModalities: ['TEXT', 'IMAGE'],
     },
   });
 
