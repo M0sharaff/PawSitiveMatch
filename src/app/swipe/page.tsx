@@ -1,6 +1,7 @@
+
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { pets as initialPets, type Pet } from '@/lib/data';
 import SwipeCard from '@/components/swipe-card';
 import useSavedPets from '@/hooks/use-saved-pets';
@@ -9,27 +10,14 @@ import { Button } from '@/components/ui/button';
 import { Undo } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
-
-const containerVariants = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: { 
-    opacity: 1, 
-    scale: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    }
-  },
-};
-
 export default function SwipePage() {
-  const [pets, setPets] = useState(initialPets);
+  const [pets, setPets] = useState(() => [...initialPets].reverse());
   const { savePet } = useSavedPets();
   const { toast } = useToast();
 
   const handleSwipe = (pet: Pet, direction: 'left' | 'right') => {
     // Remove the pet from the stack
-    setPets((prev) => prev.filter((p) => p.id !== pet.id));
+    setPets((prev) => prev.slice(0, prev.length - 1));
 
     // Save to favorites if swiped right
     if (direction === 'right') {
@@ -42,8 +30,10 @@ export default function SwipePage() {
   };
   
   const handleReset = () => {
-    setPets(initialPets);
-  }
+    setPets([...initialPets].reverse());
+  };
+
+  const currentPet = useMemo(() => pets[pets.length - 1], [pets]);
 
   return (
     <motion.div
@@ -67,7 +57,7 @@ export default function SwipePage() {
               onSwipe={(direction) => handleSwipe(pet, direction)}
               isTop={index === pets.length - 1}
             />
-          )).reverse() // a little trick to stack cards with the top one being the last in the array
+          ))
         ) : (
           <div className="text-center p-8 bg-card rounded-xl shadow-lg">
             <h2 className="text-2xl font-bold font-serif">That's everyone!</h2>

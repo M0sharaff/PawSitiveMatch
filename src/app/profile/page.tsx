@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -25,7 +26,7 @@ const itemVariants = {
 
 
 export default function ProfilePage() {
-  const { savedPets, unsavePet, clearSavedPets } = useSavedPets();
+  const { savedPets, clearSavedPets } = useSavedPets();
 
   return (
     <motion.div 

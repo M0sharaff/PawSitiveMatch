@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef } from 'react';
@@ -29,6 +30,9 @@ const SwipeCard = ({ pet, onSwipe, isTop }: SwipeCardProps) => {
 
   const bind = useDrag(
     ({ down, movement: [mx, my], direction: [xDir], velocity: [vx] }) => {
+      // Allow dragging only on the top card
+      if (!isTop) return;
+      
       const dir = xDir < 0 ? -1 : 1; // Direction should be -1 or 1
       const trigger = vx > 0.2; // If velocity is high, trigger a swipe
 
@@ -51,7 +55,7 @@ const SwipeCard = ({ pet, onSwipe, isTop }: SwipeCardProps) => {
 
   return (
     <motion.div
-      {...bind()}
+      {...(isTop ? bind() : {})}
       className="absolute w-full h-full"
       style={{
         x: xSpring,
@@ -66,7 +70,7 @@ const SwipeCard = ({ pet, onSwipe, isTop }: SwipeCardProps) => {
          transition: { type: 'spring', stiffness: 200, damping: 20 }
       }}
     >
-      <div className="relative w-full h-full rounded-2xl shadow-2xl bg-card overflow-hidden cursor-grab active:cursor-grabbing">
+      <div className={`relative w-full h-full rounded-2xl shadow-2xl bg-card overflow-hidden ${isTop ? 'cursor-grab active:cursor-grabbing' : ''}`}>
         <Image
           src={pet.photos[0]}
           alt={pet.name}

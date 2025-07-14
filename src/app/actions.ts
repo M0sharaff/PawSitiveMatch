@@ -1,3 +1,4 @@
+
 'use server';
 
 import {
@@ -32,8 +33,8 @@ export async function getPetRecommendationsAction(
     };
 
     const recommendations = await getPetRecommendations(finalInput);
-    if (!recommendations) {
-        return { recommendations: null, error: 'No recommendations found.' };
+    if (!recommendations || recommendations.length === 0) {
+        return { recommendations: null, error: 'No matching pets found. Try adjusting your preferences!' };
     }
     return { recommendations, error: null };
   } catch (error) {

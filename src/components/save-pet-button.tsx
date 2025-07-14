@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { Pet } from '@/lib/data';
@@ -17,7 +18,8 @@ interface SavePetButtonProps {
 }
 
 export function SavePetButton({ pet }: SavePetButtonProps) {
-  const { isSaved, toggleSave } = useSavedPets(pet.id);
+  const { isPetSaved, toggleSave } = useSavedPets();
+  const isSaved = isPetSaved(pet.id);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); // Prevents link navigation when clicking the button on a card
