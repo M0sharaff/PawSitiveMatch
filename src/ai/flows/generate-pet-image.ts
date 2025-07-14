@@ -24,18 +24,29 @@ const GeneratePetImageOutputSchema = z.object({
 export type GeneratePetImageOutput = z.infer<typeof GeneratePetImageOutputSchema>;
 
 export async function generatePetImage(input: GeneratePetImageInput): Promise<GeneratePetImageOutput> {
-  const { media } = await ai.generate({
-    model: 'googleai/gemini-2.0-flash-preview-image-generation',
-    prompt: `A high-quality, photo-realistic image of a ${input.breed} ${input.species}. ${input.prompt || 'The pet should be in a happy, friendly pose, suitable for an adoption website.'}`,
-    config: {
-      responseModalities: ['TEXT', 'IMAGE'],
-    },
-  });
-
-  const imageUrl = media.url;
-  if (!imageUrl) {
-    throw new Error('Image generation failed to produce an image.');
-  }
-
-  return { imageUrl };
+  return generatePetImageFlow(input);
 }
+
+const generatePetImageFlow = ai.defineFlow(
+  {
+    name: 'generatePetImageFlow',
+    inputSchema: GeneratePetImageInputSchema,
+    outputSchema: GeneratePetImageOutputSchema,
+  },
+  async (input) => {
+    const { media } = await ai.generate({
+        model: 'googleai/gemini-2.0-flash-preview-image-generation',
+        prompt: `A high-quality, photo-realistic image of a ${input.breed} ${input.species}. ${input.prompt || 'The pet should be in a happy, friendly pose, suitable for an adoption website.'}`,
+        config: {
+        responseModalities: ['TEXT', 'IMAGE'],
+        },
+    });
+
+    const imageUrl = media.url;
+    if (!imageUrl) {
+        throw new Error('Image generation failed to produce an image.');
+    }
+
+    return { imageUrl };
+  }
+);
