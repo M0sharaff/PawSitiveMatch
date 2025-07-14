@@ -39,6 +39,8 @@ export default function PetDetailPage({ params }: { params: { id: string } }) {
                     width={800}
                     height={600}
                     className="w-full object-cover aspect-[4/3]"
+                    placeholder="blur"
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/wcAAgAB/epv2AAAAABJRU5ErkJggg=="
                   />
                 </CarouselItem>
               ))}

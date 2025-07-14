@@ -12,6 +12,7 @@ import {
   SheetClose,
 } from '@/components/ui/sheet';
 import { useState } from 'react';
+import { ThemeSwitcher } from '../theme-switcher';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -40,7 +41,7 @@ export default function Header() {
               key={link.href}
               href={link.href}
               className={cn(
-                'text-foreground/70 transition-colors hover:text-foreground',
+                'text-foreground/70 transition-colors hover:text-primary',
                 pathname === link.href && 'text-primary font-semibold'
               )}
             >
@@ -49,7 +50,8 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="flex-1 flex justify-end items-center gap-4">
+        <div className="flex-1 flex justify-end items-center gap-2">
+           <ThemeSwitcher />
            <Button>
               <Heart className="mr-2 h-4 w-4"/>
               Donate
