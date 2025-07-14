@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import { pets } from "@/lib/data";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { CheckCircle, Heart, Search, User, PawPrint, MessageSquare, Bone } from "lucide-react";
+import { Search, MessageSquare, Heart, User } from "lucide-react";
 import { RecommendationForm } from "@/components/recommendation-form";
 import { HeroCarousel } from "@/components/hero-carousel";
+import PetCard from "@/components/pet-card";
 
 export default function Home() {
   const testimonials = [
@@ -69,15 +70,7 @@ export default function Home() {
           <div className="mt-12">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {pets.slice(0,3).map(pet => (
-                    <Card key={pet.id} className="transform transition-all duration-300 hover:scale-105 hover:shadow-2xl flex flex-col">
-                        <Image src={pet.photos[0]} alt={pet.name} data-ai-hint={`${pet.species.toLowerCase()} ${pet.breed.toLowerCase()}`} width={400} height={300} className="w-full object-cover aspect-[4/3] rounded-t-lg" />
-                        <CardContent className="pt-6 flex-grow flex flex-col">
-                           <h3 className="font-bold text-xl text-primary font-serif">{pet.name}</h3>
-                           <p className="text-sm text-muted-foreground">{pet.breed}</p>
-                           <p className="text-sm text-foreground/80 mt-2 flex-grow">{pet.description.substring(0, 100)}...</p>
-                           <Button asChild className="mt-4 w-full"><Link href={`/pets/${pet.id}`}>View Profile</Link></Button>
-                        </CardContent>
-                    </Card>
+                    <PetCard key={pet.id} pet={pet} />
                 ))}
             </div>
           </div>
@@ -85,7 +78,7 @@ export default function Home() {
       </section>
 
       {/* AI Recommendation Section */}
-      <section className="w-full py-16 md:py-24 bg-background">
+      <section id="ai-recommendations" className="w-full py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4 md:px-6">
             <div className="text-center max-w-3xl mx-auto">
                <h2 className="text-4xl font-bold tracking-tight text-primary font-serif">Let Our AI Find Your Perfect Match</h2>

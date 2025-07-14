@@ -9,6 +9,7 @@ import { InquiryForm } from '@/components/inquiry-form';
 import { GenerateBio } from '@/components/generate-bio';
 import { VetAssistant } from '@/components/vet-assistant';
 import { GenerateImage } from '@/components/generate-image';
+import { SavePetButton } from '@/components/save-pet-button';
 
 export async function generateStaticParams() {
   return pets.map((pet) => ({
@@ -50,55 +51,63 @@ export default function PetDetailPage({ params }: { params: { id: string } }) {
           </Carousel>
         </div>
         <div className="flex flex-col gap-4">
-          <h1 className="font-headline text-4xl lg:text-5xl font-bold text-primary">{pet.name}</h1>
-          <p className="text-xl text-muted-foreground">{pet.breed}</p>
+          <div className="flex items-start justify-between">
+            <div>
+              <h1 className="text-4xl lg:text-5xl font-bold text-primary font-serif">{pet.name}</h1>
+              <p className="text-xl text-muted-foreground">{pet.breed}</p>
+            </div>
+            <SavePetButton pet={pet} />
+          </div>
+
           <div className="flex flex-wrap gap-2">
             <Badge>{pet.age}</Badge>
             <Badge>{pet.gender}</Badge>
             <Badge>{pet.size}</Badge>
             <Badge>{pet.species}</Badge>
           </div>
+          
           <GenerateBio pet={pet} />
-          <div className="pt-4">
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
              <InquiryForm petName={pet.name} />
           </div>
         </div>
       </div>
-      <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <Card>
-          <CardHeader className="flex flex-row items-center gap-3">
-             <Heart className="w-8 h-8 text-accent" />
-            <CardTitle className="font-headline text-2xl">Personality</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-2">
-              {pet.traits.map((trait) => (
-                <Badge key={trait} variant="outline">{trait}</Badge>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center gap-3">
-             <Stethoscope className="w-8 h-8 text-accent" />
-            <CardTitle className="font-headline text-2xl">History</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground">{pet.history}</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center gap-3">
-             <Bone className="w-8 h-8 text-accent" />
-            <CardTitle className="font-headline text-2xl">Care Needs</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground">{pet.careRequirements}</p>
-          </CardContent>
-        </Card>
-      </div>
 
-      <div className="mt-12">
+      <div className="mt-12 space-y-8">
+        <Card>
+            <CardHeader>
+                <CardTitle className="font-serif text-2xl text-primary">About {pet.name}</CardTitle>
+            </CardHeader>
+            <CardContent className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                        <Heart className="w-6 h-6 text-accent" />
+                        <h3 className="font-bold text-lg">Personality & Traits</h3>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                        {pet.traits.map((trait) => (
+                            <Badge key={trait} variant="secondary">{trait}</Badge>
+                        ))}
+                    </div>
+                </div>
+                 <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                        <Stethoscope className="w-6 h-6 text-accent" />
+                        <h3 className="font-bold text-lg">History</h3>
+                    </div>
+                    <p className="text-muted-foreground">{pet.history}</p>
+                </div>
+                 <div className="space-y-4 md:col-span-2">
+                    <div className="flex items-center gap-3">
+                        <Bone className="w-6 h-6 text-accent" />
+                        <h3 className="font-bold text-lg">Care Needs</h3>
+                    </div>
+                    <p className="text-muted-foreground">{pet.careRequirements}</p>
+                </div>
+            </CardContent>
+        </Card>
+
         <VetAssistant pet={pet} />
       </div>
 
