@@ -12,6 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useToast } from '@/hooks/use-toast';
 
 interface SavePetButtonProps {
   pet: Pet;
@@ -19,12 +20,17 @@ interface SavePetButtonProps {
 
 export function SavePetButton({ pet }: SavePetButtonProps) {
   const { isPetSaved, toggleSave } = useSavedPets();
+  const { toast } = useToast();
   const isSaved = isPetSaved(pet.id);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); // Prevents link navigation when clicking the button on a card
     e.preventDefault();
     toggleSave(pet);
+    toast({
+      title: isSaved ? "Pet Unsaved" : "Pet Saved!",
+      description: `${pet.name} has been ${isSaved ? 'removed from' : 'added to'} your profile.`,
+    });
   };
 
   return (

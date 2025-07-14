@@ -3,12 +3,10 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import type { Pet } from '@/lib/data';
-import { useToast } from './use-toast';
 
 const SAVED_PETS_KEY = 'pawsitivematch_saved_pets';
 
 const useSavedPets = () => {
-  const { toast } = useToast();
   const [savedPets, setSavedPets] = useState<Pet[]>([]);
 
   useEffect(() => {
@@ -27,11 +25,6 @@ const useSavedPets = () => {
         localStorage.setItem(SAVED_PETS_KEY, JSON.stringify(pets));
     } catch (error) {
         console.error("Could not save pets to localStorage", error);
-        toast({
-            variant: 'destructive',
-            title: 'Storage Error',
-            description: 'Could not save your preferences.'
-        })
     }
   };
   
@@ -40,31 +33,34 @@ const useSavedPets = () => {
   }, [savedPets]);
 
   const toggleSave = useCallback((pet: Pet) => {
-    const currentlySaved = isPetSaved(pet.id);
-    let newSavedPets;
-    if (currentlySaved) {
-      newSavedPets = savedPets.filter(p => p.id !== pet.id);
-      toast({ title: "Pet Unsaved", description: `${pet.name} has been removed from your profile.`});
-    } else {
-      newSavedPets = [...savedPets, pet];
-      toast({ title: "Pet Saved!", description: `${pet.name} has been added to your profile.` });
-    }
-    setSavedPets(newSavedPets);
-    saveToLocalStorage(newSavedPets);
-  }, [savedPets, toast, isPetSaved]);
+    setSavedPets(currentSavedPets => {
+        const isCurrentlySaved = currentSavedPets.some(p => p.id === pet.id);
+        let newSavedPets;
+        if (isCurrentlySaved) {
+            newSavedPets = currentSavedPets.filter(p => p.id !== pet.id);
+        } else {
+            newSavedPets = [...currentSavedPets, pet];
+        }
+        saveToLocalStorage(newSavedPets);
+        return newSavedPets;
+    });
+  }, []);
   
   const savePet = useCallback((pet: Pet) => {
-    if (isPetSaved(pet.id)) return; // Don't save if already saved
-    const newSavedPets = [...savedPets, pet];
-    setSavedPets(newSavedPets);
-    saveToLocalStorage(newSavedPets);
-  }, [savedPets, isPetSaved]);
+    setSavedPets(currentSavedPets => {
+      if (currentSavedPets.some(p => p.id === pet.id)) {
+        return currentSavedPets; 
+      }
+      const newSavedPets = [...currentSavedPets, pet];
+      saveToLocalStorage(newSavedPets);
+      return newSavedPets;
+    });
+  }, []);
 
   const clearSavedPets = useCallback(() => {
     setSavedPets([]);
     saveToLocalStorage([]);
-     toast({ title: "Cleared All", description: "All your saved pets have been removed.", variant: 'destructive' });
-  }, [toast]);
+  }, []);
 
   return { savedPets, isPetSaved, toggleSave, savePet, clearSavedPets };
 };
