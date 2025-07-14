@@ -8,7 +8,7 @@ import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import { Alegreya, Inter } from 'next/font/google';
-import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeProvider } from 'next-themes';
 import { AnimatePresence, motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 
@@ -43,7 +43,12 @@ export default function RootLayout({
         <meta name="description" content="Find your perfect pet companion." />
       </head>
       <body className={cn('font-sans antialiased bg-background text-foreground min-h-screen flex flex-col', inter.variable, alegreya.variable)}>
-        <ThemeProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <Header />
           <AnimatePresence mode="wait">
             <motion.div
