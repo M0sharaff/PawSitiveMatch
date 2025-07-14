@@ -10,6 +10,11 @@ import {
   type GeneratePetBioInput,
   type GeneratePetBioOutput,
 } from '@/ai/flows/generate-pet-bio';
+import {
+  askVetAssistant,
+  type AskVetAssistantInput,
+  type AskVetAssistantOutput,
+} from '@/ai/flows/ask-vet-assistant';
 
 export async function getPetRecommendationsAction(
   input: PetPreferencesInput
@@ -45,4 +50,19 @@ export async function generatePetBioAction(
     console.error(error);
     return { bio: null, error: 'An unexpected error occurred while generating the bio.' };
   }
+}
+
+export async function askVetAssistantAction(
+  input: AskVetAssistantInput
+): Promise<{ result: AskVetAssistantOutput | null; error: string | null }> {
+    try {
+        const result = await askVetAssistant(input);
+        if (!result || !result.answer) {
+            return { result: null, error: 'Could not get an answer.' };
+        }
+        return { result, error: null };
+    } catch (error) {
+        console.error(error);
+        return { result: null, error: 'An unexpected error occurred while getting an answer.' };
+    }
 }

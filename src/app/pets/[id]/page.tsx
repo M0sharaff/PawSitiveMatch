@@ -7,6 +7,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { PawPrint, Heart, Stethoscope, Bone } from 'lucide-react';
 import { InquiryForm } from '@/components/inquiry-form';
 import { GenerateBio } from '@/components/generate-bio';
+import { VetAssistant } from '@/components/vet-assistant';
 
 export async function generateStaticParams() {
   return pets.map((pet) => ({
@@ -92,6 +93,11 @@ export default function PetDetailPage({ params }: { params: { id: string } }) {
           </CardContent>
         </Card>
       </div>
+
+      <div className="mt-12">
+        <VetAssistant pet={pet} />
+      </div>
+
     </div>
   );
 }
