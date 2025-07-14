@@ -1,4 +1,5 @@
 import type {Config} from 'tailwindcss';
+import autoplay from 'embla-carousel-autoplay';
 
 const { fontFamily } = require("tailwindcss/defaultTheme")
 
@@ -113,5 +114,5 @@ export default {
       },
     },
   },
-  plugins: [require('tailwindcss-animate'), require('embla-carousel-autoplay').default()],
+  plugins: [require('tailwindcss-animate'), autoplay],
 } satisfies Config;

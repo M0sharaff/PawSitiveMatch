@@ -4,9 +4,19 @@ import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
-import { Alegreya } from 'next/font/google';
+import { Alegreya, Inter } from 'next/font/google';
 
-const alegreya = Alegreya({ subsets: ['latin'], variable: '--font-serif' });
+const alegreya = Alegreya({ 
+  subsets: ['latin'], 
+  variable: '--font-serif',
+  display: 'swap',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'PawsitiveMatch',
@@ -19,8 +29,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
-      <body className={cn('font-serif antialiased bg-background text-foreground min-h-screen flex flex-col', alegreya.variable)}>
+    <html lang="en" className="h-full scroll-smooth">
+      <body className={cn('font-sans antialiased bg-background text-foreground min-h-screen flex flex-col', inter.variable, alegreya.variable)}>
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />
