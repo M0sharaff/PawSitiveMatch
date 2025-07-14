@@ -7,6 +7,7 @@ import { Sparkles, Loader2 } from 'lucide-react';
 import { generatePetBioAction } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent } from './ui/card';
+import { ShimmeringLoader } from './shimmering-loader';
 
 interface GenerateBioProps {
   pet: Pet;
@@ -50,7 +51,11 @@ export function GenerateBio({ pet }: GenerateBioProps) {
     <div className="space-y-4">
       <Card>
         <CardContent className="pt-6">
-            <p className="text-lg whitespace-pre-wrap">{bio}</p>
+            {isLoading ? (
+                <ShimmeringLoader count={3} />
+            ) : (
+                <p className="text-lg whitespace-pre-wrap">{bio}</p>
+            )}
         </CardContent>
       </Card>
       <div className="flex gap-2">
@@ -62,7 +67,7 @@ export function GenerateBio({ pet }: GenerateBioProps) {
             )}
             Generate New Bio
         </Button>
-        {bio !== pet.description && (
+        {bio !== pet.description && !isLoading && (
              <Button onClick={handleResetBio} variant="outline">
                 Reset
              </Button>

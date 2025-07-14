@@ -26,6 +26,9 @@ import { getPetRecommendationsAction } from '@/app/actions';
 import type { PetPreferencesInput, PetRecommendationsOutput } from '@/ai/flows/personalized-pet-recommendations';
 import { RecommendationResults } from './recommendation-results';
 import { Loader2 } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { SparklesCore } from '@/components/ui/sparkles';
+import { ShimmeringLoader } from './shimmering-loader';
 
 const formSchema = z.object({
   species: z.string().min(1, 'Species is required'),
@@ -240,22 +243,44 @@ export function RecommendationForm() {
           </Button>
         </form>
       </Form>
+      <AnimatePresence>
       {isLoading &&
-        <div className="mt-12">
-            <h3 className="text-2xl font-bold tracking-tight text-primary font-headline mb-6">Finding your matches...</h3>
+        <motion.div 
+          className="mt-12"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+            <h3 className="text-2xl font-bold tracking-tight text-primary font-serif mb-6">Finding your matches...</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <Skeleton className="h-[400px] w-full" />
-              <Skeleton className="h-[400px] w-full hidden md:block" />
-              <Skeleton className="h-[400px] w-full hidden lg:block" />
+              <ShimmeringLoader className="h-[400px] w-full" isCard />
+              <ShimmeringLoader className="h-[400px] w-full hidden md:block" isCard />
+              <ShimmeringLoader className="h-[400px] w-full hidden lg:block" isCard />
             </div>
-        </div>
+        </motion.div>
       }
       {recommendations && (
-        <div className="mt-12">
-            <h3 className="text-2xl font-bold tracking-tight text-primary font-headline mb-6">Your Recommended Matches</h3>
+        <motion.div 
+          className="mt-12 relative"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+            <div className="absolute inset-0 h-full w-full">
+                <SparklesCore
+                    id="recommendation-sparkles"
+                    background="transparent"
+                    minSize={0.6}
+                    maxSize={1.4}
+                    particleDensity={50}
+                    className="w-full h-full"
+                    particleColor="hsl(var(--primary))"
+                />
+            </div>
+            <h3 className="text-2xl font-bold tracking-tight text-primary font-serif mb-6 relative z-10">Your Recommended Matches</h3>
             <RecommendationResults recommendations={recommendations} />
-        </div>
+        </motion.div>
       )}
+      </AnimatePresence>
     </div>
   );
 }

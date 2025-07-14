@@ -52,14 +52,17 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-col overflow-x-hidden bg-background">
+    <motion.div 
+      initial="hidden"
+      animate="visible"
+      variants={STAGGER_CONTAINER_VARIANTS}
+      className="flex flex-col overflow-x-hidden bg-background"
+    >
       {/* Hero Section */}
       <section className="w-full min-h-[calc(100vh-4rem)] flex items-center bg-background">
         <div className="container mx-auto grid lg:grid-cols-2 gap-12 items-center px-4 md:px-6">
           <motion.div 
             className="flex flex-col justify-center space-y-6"
-            initial="hidden"
-            animate="visible"
             variants={STAGGER_CONTAINER_VARIANTS}
           >
             <motion.h1 variants={FADE_IN_VARIANTS} className="text-5xl md:text-7xl font-bold tracking-tighter text-primary font-serif">
@@ -299,7 +302,7 @@ export default function Home() {
             </motion.div>
         </div>
       </section>
-    </div>
+    </motion.div>
   );
 }
 

@@ -6,22 +6,44 @@ import { User, Heart, Settings, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import useSavedPets from '@/hooks/use-saved-pets';
 import PetCard from '@/components/pet-card';
+import { motion } from 'framer-motion';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1 },
+};
+
 
 export default function ProfilePage() {
   const { savedPets, unsavePet, clearSavedPets } = useSavedPets();
 
   return (
-    <div className="container mx-auto px-4 md:px-6 py-12">
-      <div className="flex items-center gap-4 mb-8">
+    <motion.div 
+      className="container mx-auto px-4 md:px-6 py-12"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
+      <motion.div variants={itemVariants} className="flex items-center gap-4 mb-8">
         <User className="w-12 h-12 text-primary" />
         <div>
             <h1 className="text-3xl font-bold font-serif">My Profile</h1>
             <p className="text-muted-foreground">Manage your preferences and saved pets.</p>
         </div>
-      </div>
+      </motion.div>
       
       <div className="grid lg:grid-cols-3 gap-8 items-start">
-        <div className="lg:col-span-2">
+        <motion.div variants={itemVariants} className="lg:col-span-2">
             <Card>
                 <CardHeader className="flex flex-row justify-between items-start">
                     <div>
@@ -42,11 +64,16 @@ export default function ProfilePage() {
                 </CardHeader>
                 <CardContent>
                     {savedPets.length > 0 ? (
-                        <div className="grid sm:grid-cols-2 gap-6">
+                        <motion.div 
+                          className="grid sm:grid-cols-2 gap-6"
+                          variants={containerVariants}
+                        >
                             {savedPets.map(pet => (
-                                <PetCard key={pet.id} pet={pet} />
+                                <motion.div key={pet.id} variants={itemVariants}>
+                                  <PetCard pet={pet} />
+                                </motion.div>
                             ))}
-                        </div>
+                        </motion.div>
                     ) : (
                         <div className="text-center text-muted-foreground py-16">
                             <Heart className="mx-auto h-12 w-12 text-gray-300" />
@@ -58,9 +85,9 @@ export default function ProfilePage() {
                     )}
                 </CardContent>
             </Card>
-        </div>
+        </motion.div>
 
-        <div className="sticky top-24">
+        <motion.div variants={itemVariants} className="sticky top-24">
             <Card>
                 <CardHeader>
                     <div className="flex items-center gap-3">
@@ -78,8 +105,8 @@ export default function ProfilePage() {
                     </Button>
                 </CardContent>
             </Card>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }

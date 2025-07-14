@@ -1,3 +1,6 @@
+// src/app/pets/[id]/page.tsx
+'use client';
+
 import { pets } from '@/lib/data';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -10,14 +13,13 @@ import { GenerateBio } from '@/components/generate-bio';
 import { VetAssistant } from '@/components/vet-assistant';
 import { GenerateImage } from '@/components/generate-image';
 import { SavePetButton } from '@/components/save-pet-button';
+import { AdoptionProcessTracker } from '@/components/adoption-process-tracker';
+import { motion } from 'framer-motion';
 
-export async function generateStaticParams() {
-  return pets.map((pet) => ({
-    id: pet.id.toString(),
-  }));
-}
 
 export default function PetDetailPage({ params }: { params: { id: string } }) {
+  // This is a client component, so we can't use generateStaticParams directly here for data fetching.
+  // In a real app, you'd fetch this data in a server component and pass it down, or use a client-side fetch.
   const pet = pets.find((p) => p.id.toString() === params.id);
 
   if (!pet) {
@@ -25,7 +27,12 @@ export default function PetDetailPage({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="container mx-auto px-4 md:px-6 py-12">
+    <motion.div 
+      className="container mx-auto px-4 md:px-6 py-12"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
         <div>
           <Carousel className="rounded-lg overflow-hidden shadow-lg">
@@ -77,6 +84,8 @@ export default function PetDetailPage({ params }: { params: { id: string } }) {
       </div>
 
       <div className="mt-12 space-y-8">
+        <AdoptionProcessTracker />
+        
         <Card>
             <CardHeader>
                 <CardTitle className="font-serif text-2xl text-primary">About {pet.name}</CardTitle>
@@ -106,6 +115,7 @@ export default function PetDetailPage({ params }: { params: { id: string } }) {
                         <h3 className="font-bold text-lg">Care Needs</h3>
                     </div>
                     <p className="text-muted-foreground">{pet.careRequirements}</p>
+
                 </div>
             </CardContent>
         </Card>
@@ -113,6 +123,6 @@ export default function PetDetailPage({ params }: { params: { id: string } }) {
         <VetAssistant pet={pet} />
       </div>
 
-    </div>
+    </motion.div>
   );
 }

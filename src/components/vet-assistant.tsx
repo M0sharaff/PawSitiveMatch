@@ -12,6 +12,7 @@ import { Textarea } from './ui/textarea';
 import { Stethoscope, Loader2, Sparkles } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { askVetAssistantAction } from '@/app/actions';
+import { ShimmeringLoader } from './shimmering-loader';
 
 interface VetAssistantProps {
   pet: Pet;
@@ -68,7 +69,7 @@ export function VetAssistant({ pet }: VetAssistantProps) {
         <div className="flex items-center gap-3">
             <Stethoscope className="w-8 h-8 text-primary" />
             <div>
-                <CardTitle className="font-headline text-2xl">AI Vet Assistant</CardTitle>
+                <CardTitle className="font-serif text-2xl">AI Vet Assistant</CardTitle>
                 <CardDescription>Have a question about {pet.name}? Ask our AI assistant!</CardDescription>
             </div>
         </div>
@@ -101,16 +102,15 @@ export function VetAssistant({ pet }: VetAssistantProps) {
         </Form>
         
         {isLoading && (
-            <div className="mt-6 flex items-center justify-center">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                <p className="ml-4 text-muted-foreground">Thinking...</p>
+            <div className="mt-6">
+                <ShimmeringLoader count={4} />
             </div>
         )}
 
         {answer && (
           <Card className="mt-6 bg-accent/20">
             <CardHeader>
-              <CardTitle className="font-headline text-xl">Assistant's Answer</CardTitle>
+              <CardTitle className="font-serif text-xl">Assistant's Answer</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="whitespace-pre-wrap">{answer}</p>
