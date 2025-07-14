@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { PawPrint, Menu, X, Heart } from 'lucide-react';
+import { PawPrint, Menu, X, Heart, Film, Layers } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -17,6 +17,8 @@ import { ThemeSwitcher } from '../theme-switcher';
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/pets', label: 'Browse Pets' },
+  { href: '/swipe', label: 'Swipe', icon: Layers },
+  { href: '/stories', label: 'Stories', icon: Film },
   { href: '/profile', label: 'Profile' },
 ];
 
@@ -41,10 +43,11 @@ export default function Header() {
               key={link.href}
               href={link.href}
               className={cn(
-                'text-foreground/70 transition-colors hover:text-primary',
+                'flex items-center gap-2 text-foreground/70 transition-colors hover:text-primary',
                 pathname === link.href && 'text-primary font-semibold'
               )}
             >
+              {link.icon && <link.icon className="h-4 w-4" />}
               {link.label}
             </Link>
           ))}
@@ -88,10 +91,11 @@ export default function Header() {
                             <Link
                                 href={link.href}
                                 className={cn(
-                                'text-lg font-medium text-foreground/80 transition-colors hover:text-primary',
+                                'flex items-center gap-3 text-lg font-medium text-foreground/80 transition-colors hover:text-primary',
                                 pathname === link.href && 'text-primary font-bold'
                                 )}
                             >
+                                {link.icon && <link.icon className="h-5 w-5" />}
                                 {link.label}
                             </Link>
                         </SheetClose>
