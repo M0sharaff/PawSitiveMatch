@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { PawPrint, Heart, Stethoscope, Bone } from 'lucide-react';
 import { InquiryForm } from '@/components/inquiry-form';
+import { GenerateBio } from '@/components/generate-bio';
 
 export async function generateStaticParams() {
   return pets.map((pet) => ({
@@ -52,7 +53,7 @@ export default function PetDetailPage({ params }: { params: { id: string } }) {
             <Badge>{pet.size}</Badge>
             <Badge>{pet.species}</Badge>
           </div>
-          <p className="text-lg">{pet.description}</p>
+          <GenerateBio pet={pet} />
           <div className="pt-4">
              <InquiryForm petName={pet.name} />
           </div>

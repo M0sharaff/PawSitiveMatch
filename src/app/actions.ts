@@ -5,6 +5,11 @@ import {
   type PetPreferencesInput,
   type PetRecommendationsOutput,
 } from '@/ai/flows/personalized-pet-recommendations';
+import {
+  generatePetBio,
+  type GeneratePetBioInput,
+  type GeneratePetBioOutput,
+} from '@/ai/flows/generate-pet-bio';
 
 export async function getPetRecommendationsAction(
   input: PetPreferencesInput
@@ -24,5 +29,20 @@ export async function getPetRecommendationsAction(
   } catch (error) {
     console.error(error);
     return { recommendations: null, error: 'An unexpected error occurred while fetching recommendations.' };
+  }
+}
+
+export async function generatePetBioAction(
+  input: GeneratePetBioInput
+): Promise<{ bio: GeneratePetBioOutput | null; error: string | null }> {
+  try {
+    const result = await generatePetBio(input);
+    if (!result || !result.bio) {
+      return { bio: null, error: 'Could not generate a bio.' };
+    }
+    return { bio: result, error: null };
+  } catch (error) {
+    console.error(error);
+    return { bio: null, error: 'An unexpected error occurred while generating the bio.' };
   }
 }
