@@ -5,17 +5,34 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import type { PetRecommendationsOutput } from "@/ai/flows/personalized-pet-recommendations"
-import Image from "next/image"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card"
-import { Badge } from "./ui/badge"
-import { Button } from "./ui/button"
+import type { PetRecommendation } from "@/ai/flows/personalized-pet-recommendations"
+import PetCard from "./pet-card"
+import type { Pet } from "@/lib/data"
+import Link from "next/link"
 
 interface RecommendationResultsProps {
-  recommendations: PetRecommendationsOutput
+  recommendations: PetRecommendation[]
 }
 
 export function RecommendationResults({ recommendations }: RecommendationResultsProps) {
+  
+  // Map the recommendation data to the Pet data structure
+  const mappedPets: Pet[] = recommendations.map(rec => ({
+    id: parseInt(rec.petId, 10), // The AI might return string IDs
+    name: rec.name,
+    species: rec.species as Pet['species'],
+    breed: rec.breed || 'Mixed Breed',
+    age: rec.age as Pet['age'],
+    gender: rec.gender as Pet['gender'],
+    size: rec.size as Pet['size'],
+    location: 'AI Match', // Placeholder location
+    description: rec.description,
+    photos: [rec.photoUrl],
+    traits: [`Match Score: ${Math.round(rec.matchScore * 100)}%`],
+    history: 'This pet was recommended by our AI based on your preferences.',
+    careRequirements: 'Please review the full profile for detailed care needs.',
+  }));
+
   return (
     <Carousel
       opts={{
@@ -24,38 +41,12 @@ export function RecommendationResults({ recommendations }: RecommendationResults
       className="w-full"
     >
       <CarouselContent>
-        {recommendations.map((pet) => (
-          <CarouselItem key={pet.petId} className="md:basis-1/2 lg:basis-1/3">
-            <div className="p-1">
-              <Card className="h-full flex flex-col">
-                <CardHeader>
-                  <CardTitle className="font-headline">{pet.name}</CardTitle>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <Image
-                    src={pet.photoUrl || 'https://placehold.co/600x400.png'}
-                    alt={`Photo of ${pet.name}`}
-                    data-ai-hint={`${pet.species.toLowerCase()} ${pet.breed?.toLowerCase() || ''}`}
-                    width={600}
-                    height={400}
-                    className="rounded-lg object-cover aspect-video mb-4"
-                    placeholder="blur"
-                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/wcAAgAB/epv2AAAAABJRU5ErkJggg=="
-                  />
-                  <p className="text-sm text-muted-foreground mb-2">{pet.description}</p>
-                  <div className="flex flex-wrap gap-2 text-xs">
-                      <Badge variant="secondary">{pet.breed}</Badge>
-                      <Badge variant="secondary">{pet.age}</Badge>
-                      <Badge variant="secondary">{pet.size}</Badge>
-                  </div>
-                </CardContent>
-                <CardFooter className="flex justify-between items-center">
-                    <div className="text-sm font-bold text-primary">
-                        Match: {Math.round(pet.matchScore * 100)}%
-                    </div>
-                   <Button variant="outline">View Profile</Button>
-                </CardFooter>
-              </Card>
+        {mappedPets.map((pet) => (
+          <CarouselItem key={pet.id} className="md:basis-1/2 lg:basis-1/3">
+            <div className="p-1 h-full">
+              <Link href={`/pets/${pet.id}`} className="block h-full">
+                <PetCard pet={pet} />
+              </Link>
             </div>
           </CarouselItem>
         ))}

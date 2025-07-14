@@ -7,6 +7,8 @@ import useSavedPets from '@/hooks/use-saved-pets';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Undo } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+
 
 const containerVariants = {
   hidden: { opacity: 0, scale: 0.9 },
@@ -23,6 +25,7 @@ const containerVariants = {
 export default function SwipePage() {
   const [pets, setPets] = useState(initialPets);
   const { savePet } = useSavedPets();
+  const { toast } = useToast();
 
   const handleSwipe = (pet: Pet, direction: 'left' | 'right') => {
     // Remove the pet from the stack
@@ -31,6 +34,10 @@ export default function SwipePage() {
     // Save to favorites if swiped right
     if (direction === 'right') {
       savePet(pet);
+       toast({
+        title: 'Pet Saved!',
+        description: `${pet.name} has been added to your favorites.`,
+      });
     }
   };
   

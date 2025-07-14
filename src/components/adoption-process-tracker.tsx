@@ -5,20 +5,54 @@ import { Check, Dot, Circle, Home, HeartHandshake, Stethoscope } from 'lucide-re
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { useMemo } from 'react';
+import { useEffect, useState } from 'react';
 
-const steps = [
+const stepsData = [
   { name: 'Inquiry Sent', icon: Circle, status: 'completed' },
-  { name: 'Meet & Greet', icon: HeartHandshake, status: 'completed' },
-  { name: 'Home Check', icon: Stethoscope, status: 'current' },
+  { name: 'Meet & Greet', icon: HeartHandshake, status: 'upcoming' },
+  { name: 'Home Check', icon: Stethoscope, status: 'upcoming' },
   { name: 'Adopted!', icon: Home, status: 'upcoming' },
 ];
 
 export function AdoptionProcessTracker() {
-  const currentStepIndex = useMemo(() => {
-    const index = steps.findIndex(step => step.status === 'current');
-    return index === -1 ? steps.length : index;
+  const [steps, setSteps] = useState(stepsData);
+
+  useEffect(() => {
+    const timeouts: NodeJS.Timeout[] = [];
+    // Animate the steps to make it feel more dynamic
+    stepsData.forEach((_, stepIndex) => {
+        if (stepIndex > 0) { // Start animating from the second step
+            const timeout = setTimeout(() => {
+                setSteps(prevSteps => {
+                    const newSteps = [...prevSteps];
+                    if (stepIndex > 0) {
+                      newSteps[stepIndex - 1] = { ...newSteps[stepIndex - 1], status: 'completed' };
+                    }
+                    newSteps[stepIndex] = { ...newSteps[stepIndex], status: 'current' };
+                    return newSteps;
+                });
+            }, 1000 * stepIndex);
+            timeouts.push(timeout);
+        }
+    });
+    
+    // Final step after a delay
+    const finalTimeout = setTimeout(() => {
+        setSteps(prevSteps => {
+            const newSteps = [...prevSteps];
+            newSteps[newSteps.length - 2].status = 'completed';
+            newSteps[newSteps.length - 1].status = 'current';
+            return newSteps;
+        });
+    }, 1000 * stepsData.length);
+    timeouts.push(finalTimeout);
+
+    return () => {
+        timeouts.forEach(clearTimeout);
+    };
   }, []);
+
+  const currentStepIndex = steps.findIndex(step => step.status === 'current');
 
   return (
     <Card>
