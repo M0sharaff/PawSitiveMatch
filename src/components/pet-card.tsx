@@ -22,8 +22,12 @@ export default function PetCard({ pet }: PetCardProps) {
   const smoothMouseX = useSpring(mouseX, springConfig);
   const smoothMouseY = useSpring(mouseY, springConfig);
 
-  const rotateX = useTransform(smoothMouseY, [-0.5, 0.5], ['7.5deg', '-7.5deg']);
-  const rotateY = useTransform(smoothMouseX, [-0.5, 0.5], ['-7.5deg', '7.5deg']);
+  const rotateX = useTransform(smoothMouseY, [-0.5, 0.5], ['6deg', '-6deg']);
+  const rotateY = useTransform(smoothMouseX, [-0.5, 0.5], ['-6deg', '6deg']);
+  
+  const glareX = useTransform(smoothMouseX, [-0.5, 0.5], ['100%', '-100%']);
+  const glareY = useTransform(smoothMouseY, [-0.5, 0.5], ['100%', '-100%']);
+
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
@@ -41,53 +45,76 @@ export default function PetCard({ pet }: PetCardProps) {
   return (
     <motion.div
       style={{
-        rotateX,
-        rotateY,
-        transformStyle: 'preserve-3d',
+        perspective: '1000px',
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="w-full h-full"
+      className="w-full h-full group"
     >
-      <Card 
-        className="h-full overflow-hidden transition-all duration-300 ease-in-out bg-card flex flex-col group"
-        style={{ transform: 'translateZ(75px)', transformStyle: 'preserve-3d' }}
+      <motion.div
+         style={{
+          transformStyle: 'preserve-3d',
+          rotateX,
+          rotateY,
+        }}
       >
-        <div className="relative overflow-hidden aspect-[4/3]">
-          <Link href={`/pets/${pet.id}`} className="block">
-            <Image
-              src={pet.photos[0]}
-              alt={`A photo of ${pet.name}`}
-              data-ai-hint={`${pet.species.toLowerCase()} ${pet.breed.toLowerCase()}`}
-              fill
-              className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-              placeholder="blur"
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/wcAAgAB/epv2AAAAABJRU5ErkJggg=="
-            />
-          </Link>
-          <div className="absolute top-2 right-2 z-10">
-            <SavePetButton pet={pet} />
-          </div>
-        </div>
-        <div className="p-4 flex flex-col flex-grow">
-          <Link href={`/pets/${pet.id}`} className="block">
-            <h3 className="font-bold text-xl text-primary">{pet.name}</h3>
-            <p className="text-sm text-muted-foreground">{pet.breed}</p>
-          </Link>
-          <div className="flex-grow mt-2">
-            <p className="text-sm text-foreground/80 line-clamp-2">{pet.description}</p>
-          </div>
-          <div className="flex items-center gap-2 mt-4 text-xs text-muted-foreground">
-            <MapPin className="h-4 w-4"/>
-            <span>{pet.location}</span>
-          </div>
-          <div className="flex flex-wrap gap-2 mt-2">
-            <Badge variant="secondary">{pet.age}</Badge>
-            <Badge variant="secondary">{pet.size}</Badge>
-            <Badge variant="secondary">{pet.gender}</Badge>
-          </div>
-        </div>
-      </Card>
+        <Card 
+          className="h-full overflow-hidden transition-all duration-300 ease-in-out bg-card/60 backdrop-blur-sm flex flex-col relative"
+          style={{ transformStyle: 'preserve-3d' }}
+        >
+          {/* Glow Effect */}
+          <motion.div
+            className="absolute -inset-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+            style={{
+              background: `radial-gradient(400px at ${mouseX.get() * 100 + 50}% ${mouseY.get() * 100 + 50}%, hsl(var(--primary) / 0.15), transparent 80%)`,
+              transform: 'translateZ(-1px)',
+            }}
+          />
+          {/* Image Layer */}
+          <motion.div 
+            className="relative overflow-hidden aspect-[4/3] rounded-t-lg"
+            style={{ transform: 'translateZ(60px)' }}
+          >
+            <Link href={`/pets/${pet.id}`} className="block">
+              <Image
+                src={pet.photos[0]}
+                alt={`A photo of ${pet.name}`}
+                data-ai-hint={`${pet.species.toLowerCase()} ${pet.breed.toLowerCase()}`}
+                fill
+                className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/wcAAgAB/epv2AAAAABJRU5ErkJggg=="
+              />
+            </Link>
+            <div className="absolute top-3 right-3 z-10">
+              <SavePetButton pet={pet} />
+            </div>
+          </motion.div>
+          
+          {/* Content Layer */}
+          <motion.div 
+            className="p-4 flex flex-col flex-grow"
+            style={{ transform: 'translateZ(40px)' }}
+          >
+            <Link href={`/pets/${pet.id}`} className="block">
+              <h3 className="font-bold text-xl text-primary">{pet.name}</h3>
+              <p className="text-sm text-muted-foreground">{pet.breed}</p>
+            </Link>
+            <div className="flex-grow mt-2">
+              <p className="text-sm text-foreground/80 line-clamp-2">{pet.description}</p>
+            </div>
+            <div className="flex items-center gap-2 mt-4 text-xs text-muted-foreground">
+              <MapPin className="h-4 w-4"/>
+              <span>{pet.location}</span>
+            </div>
+            <div className="flex flex-wrap gap-2 mt-2">
+              <Badge variant="secondary">{pet.age}</Badge>
+              <Badge variant="secondary">{pet.size}</Badge>
+              <Badge variant="secondary">{pet.gender}</Badge>
+            </div>
+          </motion.div>
+        </Card>
+      </motion.div>
     </motion.div>
   );
 }

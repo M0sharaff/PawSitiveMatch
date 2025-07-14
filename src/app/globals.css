@@ -56,6 +56,84 @@
     --input: 15 25% 22%;
     --ring: 60 80% 45%;
   }
+
+  .theme-forest {
+    --background: 120 15% 96%;
+    --foreground: 120 10% 10%;
+    --card: 120 15% 99%;
+    --primary: 140 60% 30%;
+    --primary-foreground: 140 10% 95%;
+    --secondary: 110 15% 94%;
+    --accent: 150 70% 40%;
+    --border: 120 15% 88%;
+    --input: 120 15% 92%;
+    --ring: 140 60% 30%;
+  }
+
+  .dark.theme-forest {
+    --background: 120 10% 8%;
+    --foreground: 120 10% 98%;
+    --card: 120 10% 12%;
+    --primary: 140 60% 40%;
+    --primary-foreground: 140 10% 95%;
+    --secondary: 110 10% 15%;
+    --accent: 150 70% 50%;
+    --border: 120 10% 20%;
+    --input: 120 10% 18%;
+    --ring: 140 60% 40%;
+  }
+
+  .theme-sky {
+    --background: 210 40% 98%;
+    --foreground: 215 25% 10%;
+    --card: 210 40% 100%;
+    --primary: 220 90% 55%;
+    --primary-foreground: 220 20% 98%;
+    --secondary: 200 30% 95%;
+    --accent: 190 95% 50%;
+    --border: 210 40% 90%;
+    --input: 210 40% 94%;
+    --ring: 220 90% 55%;
+  }
+
+  .dark.theme-sky {
+    --background: 220 20% 10%;
+    --foreground: 210 40% 98%;
+    --card: 220 20% 14%;
+    --primary: 220 90% 65%;
+    --primary-foreground: 220 20% 98%;
+    --secondary: 200 20% 18%;
+    --accent: 190 95% 60%;
+    --border: 210 20% 25%;
+    --input: 210 20% 22%;
+    --ring: 220 90% 65%;
+  }
+  
+  .theme-night {
+    --background: 240 10% 4%;
+    --foreground: 240 5% 95%;
+    --card: 240 10% 10%;
+    --primary: 260 80% 70%;
+    --primary-foreground: 260 10% 98%;
+    --secondary: 240 10% 15%;
+    --accent: 310 90% 65%;
+    --border: 240 10% 20%;
+    --input: 240 10% 18%;
+    --ring: 260 80% 70%;
+  }
+  
+  .dark.theme-night {
+    --background: 240 10% 4%;
+    --foreground: 240 5% 95%;
+    --card: 240 10% 10%;
+    --primary: 260 80% 70%;
+    --primary-foreground: 260 10% 98%;
+    --secondary: 240 10% 15%;
+    --accent: 310 90% 65%;
+    --border: 240 10% 20%;
+    --input: 240 10% 18%;
+    --ring: 260 80% 70%;
+  }
 }
 
 @layer base {
@@ -65,5 +143,6 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    transition: background-color 0.5s ease, color 0.5s ease;
   }
 }
