@@ -70,7 +70,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {pets.slice(0,3).map(pet => (
                     <Card key={pet.id} className="transform transition-all duration-300 hover:scale-105 hover:shadow-2xl flex flex-col">
-                        <Image src={pet.photos[0]} alt={pet.name} data-ai-hint={`${pet.species} ${pet.breed}`} width={400} height={300} className="w-full object-cover aspect-[4/3] rounded-t-lg" />
+                        <Image src={pet.photos[0]} alt={pet.name} data-ai-hint={`${pet.species.toLowerCase()} ${pet.breed.toLowerCase()}`} width={400} height={300} className="w-full object-cover aspect-[4/3] rounded-t-lg" />
                         <CardContent className="pt-6 flex-grow flex flex-col">
                            <h3 className="font-bold text-xl text-primary font-serif">{pet.name}</h3>
                            <p className="text-sm text-muted-foreground">{pet.breed}</p>

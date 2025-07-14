@@ -17,7 +17,7 @@ export default function PetCard({ pet }: PetCardProps) {
           <Image
             src={pet.photos[0]}
             alt={`A photo of ${pet.name}`}
-            data-ai-hint={`${pet.species} ${pet.breed}`}
+            data-ai-hint={`${pet.species.toLowerCase()} ${pet.breed.toLowerCase()}`}
             fill
             className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
           />

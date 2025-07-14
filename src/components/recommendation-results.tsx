@@ -35,6 +35,7 @@ export function RecommendationResults({ recommendations }: RecommendationResults
                   <Image
                     src={pet.photoUrl || 'https://placehold.co/600x400.png'}
                     alt={`Photo of ${pet.name}`}
+                    data-ai-hint={`${pet.species.toLowerCase()} ${pet.breed.toLowerCase()}`}
                     width={600}
                     height={400}
                     className="rounded-lg object-cover aspect-video mb-4"

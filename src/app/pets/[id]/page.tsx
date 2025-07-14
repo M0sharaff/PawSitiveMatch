@@ -33,7 +33,7 @@ export default function PetDetailPage({ params }: { params: { id: string } }) {
                   <Image
                     src={photo}
                     alt={`Photo ${index + 1} of ${pet.name}`}
-                    data-ai-hint={`${pet.species} ${pet.breed}`}
+                    data-ai-hint={`${pet.species.toLowerCase()} ${pet.breed.toLowerCase()}`}
                     width={800}
                     height={600}
                     className="w-full object-cover aspect-[4/3]"

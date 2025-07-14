@@ -26,7 +26,7 @@ export function HeroCarousel() {
                   <Image
                     src={pet.photos[0]}
                     alt={`Photo of ${pet.name}`}
-                    data-ai-hint={`${pet.species} ${pet.breed}`}
+                    data-ai-hint={`${pet.species.toLowerCase()} ${pet.breed.toLowerCase()}`}
                     width={800}
                     height={800}
                     className="w-full aspect-square object-cover"
