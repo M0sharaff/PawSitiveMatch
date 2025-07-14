@@ -4,9 +4,9 @@ import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
-import { Inter } from 'next/font/google';
+import { Alegreya } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+const alegreya = Alegreya({ subsets: ['latin'], variable: '--font-serif' });
 
 export const metadata: Metadata = {
   title: 'PawsitiveMatch',
@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
-      <body className={cn('font-sans antialiased bg-background text-foreground min-h-screen flex flex-col', inter.variable)}>
+      <body className={cn('font-serif antialiased bg-background text-foreground min-h-screen flex flex-col', alegreya.variable)}>
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />
