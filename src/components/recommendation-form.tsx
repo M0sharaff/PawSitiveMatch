@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -41,7 +42,7 @@ const formSchema = z.object({
   temperament: z.string().min(1, 'Temperament is required'),
 });
 
-export function RecommendationForm() {
+export default function RecommendationForm() {
   const [recommendations, setRecommendations] = useState<PetRecommendationsOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -284,3 +285,5 @@ export function RecommendationForm() {
     </div>
   );
 }
+
+    

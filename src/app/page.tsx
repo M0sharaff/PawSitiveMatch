@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from "next/image";
@@ -6,14 +7,14 @@ import { Button } from "@/components/ui/button";
 import { pets } from "@/lib/data";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Search, MessageSquare, Heart, User, ShieldCheck, Cpu, PawPrint } from "lucide-react";
+import { Search, MessageSquare, Heart, User } from "lucide-react";
 import React, { Suspense } from "react";
 import { motion } from "framer-motion";
 import { HeroCarousel } from "@/components/hero-carousel";
 import PetCard from "@/components/pet-card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const RecommendationForm = React.lazy(() => import('@/components/recommendation-form').then(module => ({ default: module.RecommendationForm })));
+const RecommendationForm = React.lazy(() => import('@/components/recommendation-form'));
 
 const FADE_IN_VARIANTS = {
   hidden: { opacity: 0, y: 20 },
