@@ -19,48 +19,64 @@ const useSavedPets = () => {
         setSavedPets([]);
     }
   }, []);
-
-  const saveToLocalStorage = (pets: Pet[]) => {
-    try {
-        localStorage.setItem(SAVED_PETS_KEY, JSON.stringify(pets));
-    } catch (error) {
-        console.error("Could not save pets to localStorage", error);
-    }
-  };
   
   const isPetSaved = useCallback((petId: number) => {
     return savedPets.some(p => p.id === petId);
   }, [savedPets]);
 
   const toggleSave = useCallback((pet: Pet) => {
-    setSavedPets(currentSavedPets => {
-        const isCurrentlySaved = currentSavedPets.some(p => p.id === pet.id);
-        let newSavedPets;
-        if (isCurrentlySaved) {
-            newSavedPets = currentSavedPets.filter(p => p.id !== pet.id);
-        } else {
-            newSavedPets = [...currentSavedPets, pet];
-        }
-        saveToLocalStorage(newSavedPets);
-        return newSavedPets;
-    });
-  }, []);
+    const isCurrentlySaved = savedPets.some(p => p.id === pet.id);
+    const optimisticState = isCurrentlySaved 
+      ? savedPets.filter(p => p.id !== pet.id)
+      : [...savedPets, pet];
+
+    // Optimistically update the UI
+    setSavedPets(optimisticState);
+
+    // Sync with localStorage in the background
+    try {
+      localStorage.setItem(SAVED_PETS_KEY, JSON.stringify(optimisticState));
+    } catch (error) {
+      console.error("Failed to save to localStorage, reverting state.", error);
+      // Revert to the original state on failure
+      setSavedPets(savedPets);
+      // The component using the hook should be responsible for showing a toast
+    }
+  }, [savedPets]);
   
   const savePet = useCallback((pet: Pet) => {
-    setSavedPets(currentSavedPets => {
-      if (currentSavedPets.some(p => p.id === pet.id)) {
-        return currentSavedPets; 
-      }
-      const newSavedPets = [...currentSavedPets, pet];
-      saveToLocalStorage(newSavedPets);
-      return newSavedPets;
-    });
-  }, []);
+    if (savedPets.some(p => p.id === pet.id)) {
+      return; // Already saved, do nothing.
+    }
+    const optimisticState = [...savedPets, pet];
+    
+    // Optimistically update the UI
+    setSavedPets(optimisticState);
+
+    // Sync with localStorage in the background
+    try {
+      localStorage.setItem(SAVED_PETS_KEY, JSON.stringify(optimisticState));
+    } catch (error) {
+      console.error("Failed to save to localStorage, reverting state.", error);
+      // Revert to the original state on failure
+      setSavedPets(savedPets);
+    }
+  }, [savedPets]);
 
   const clearSavedPets = useCallback(() => {
+    const originalState = [...savedPets];
+    // Optimistically update the UI
     setSavedPets([]);
-    saveToLocalStorage([]);
-  }, []);
+
+    // Sync with localStorage in the background
+    try {
+      localStorage.setItem(SAVED_PETS_KEY, JSON.stringify([]));
+    } catch (error) {
+      console.error("Failed to clear localStorage, reverting state.", error);
+      // Revert to the original state on failure
+      setSavedPets(originalState);
+    }
+  }, [savedPets]);
 
   return { savedPets, isPetSaved, toggleSave, savePet, clearSavedPets };
 };
