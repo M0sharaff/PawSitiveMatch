@@ -9,18 +9,19 @@ import {
 import {
   generatePetBio,
   type GeneratePetBioInput,
-  type GeneratePetBioOutput,
 } from '@/ai/flows/generate-pet-bio';
 import {
   askVetAssistant,
   type AskVetAssistantInput,
-  type AskVetAssistantOutput,
 } from '@/ai/flows/ask-vet-assistant';
 import {
     generatePetImage,
     type GeneratePetImageInput,
     type GeneratePetImageOutput,
 } from '@/ai/flows/generate-pet-image';
+import { createStreamableValue } from 'ai/rsc';
+import { streamText } from 'ai/rsc';
+import { ai } from '@/ai/genkit';
 
 export async function getPetRecommendationsAction(
   input: PetPreferencesInput
@@ -45,32 +46,42 @@ export async function getPetRecommendationsAction(
 
 export async function generatePetBioAction(
   input: GeneratePetBioInput
-): Promise<{ bio: GeneratePetBioOutput | null; error: string | null }> {
-  try {
-    const result = await generatePetBio(input);
-    if (!result || !result.bio) {
-      return { bio: null, error: 'Could not generate a bio.' };
+) {
+  'use server';
+  const stream = createStreamableValue('');
+
+  (async () => {
+    const {textStream} = await ai.generate({
+      prompt: `You are a creative writer for a pet adoption agency. Your task is to write a warm, friendly, and engaging biography for a pet, from the pet's perspective (in the first person). The goal is to create an emotional connection with potential adopters. Make the bio about 2-3 short paragraphs. Use the following information about the pet: Name: ${input.name}, Species: ${input.species}, Breed: ${input.breed}, Personality Traits: ${input.traits.join(', ')}. Generate the biography.`,
+      stream: true
+    });
+    for await (const chunk of textStream) {
+      stream.update(chunk);
     }
-    return { bio: result, error: null };
-  } catch (error) {
-    console.error(error);
-    return { bio: null, error: 'An unexpected error occurred while generating the bio.' };
-  }
+    stream.done();
+  })();
+
+  return { object: null, ui: null, text: stream.value };
 }
 
 export async function askVetAssistantAction(
   input: AskVetAssistantInput
-): Promise<{ result: AskVetAssistantOutput | null; error: string | null }> {
-    try {
-        const result = await askVetAssistant(input);
-        if (!result || !result.answer) {
-            return { result: null, error: 'Could not get an answer.' };
+) {
+    'use server';
+    const stream = createStreamableValue('');
+
+    (async () => {
+        const {textStream} = await ai.generate({
+          prompt: `You are an AI Veterinary Assistant for a pet adoption agency. Your role is to provide helpful, general advice based on a pet's profile in response to questions from potential adopters. You are not a real veterinarian and cannot provide medical diagnoses. ALWAYS include a disclaimer in your answer: "Remember, I'm an AI assistant, not a substitute for a real veterinarian. Please consult a professional for any serious health concerns." A user is asking about a pet named ${input.petDetails.name}. Here are the pet's details: Species: ${input.petDetails.species}, Breed: ${input.petDetails.breed}, Age: ${input.petDetails.age}, History: ${input.petDetails.history}, Known Care Requirements: ${input.petDetails.careRequirements}. Here is the user's question: "${input.question}" Please provide a helpful, friendly, and safe answer to their question based *only* on the information provided. Structure your answer in 1-2 paragraphs.`,
+          stream: true,
+        });
+        for await (const chunk of textStream) {
+            stream.update(chunk);
         }
-        return { result, error: null };
-    } catch (error) {
-        console.error(error);
-        return { result: null, error: 'An unexpected error occurred while getting an answer.' };
-    }
+        stream.done();
+    })();
+    
+    return { object: null, ui: null, text: stream.value };
 }
 
 export async function generatePetImageAction(

@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -7,67 +8,68 @@ import { Sparkles, Loader2 } from 'lucide-react';
 import { generatePetBioAction } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent } from './ui/card';
-import { ShimmeringLoader } from './shimmering-loader';
+import { useCompletion } from 'ai/react';
 
 interface GenerateBioProps {
   pet: Pet;
 }
 
 export function GenerateBio({ pet }: GenerateBioProps) {
-  const [bio, setBio] = useState(pet.description);
-  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const [hasGenerated, setHasGenerated] = useState(false);
 
-  const handleGenerateBio = async () => {
-    setIsLoading(true);
-    const result = await generatePetBioAction({
-      name: pet.name,
-      species: pet.species,
-      breed: pet.breed,
-      traits: pet.traits,
-    });
-    setIsLoading(false);
-
-    if (result.error) {
-      toast({
-        variant: 'destructive',
-        title: 'Error generating bio',
-        description: result.error,
-      });
-    } else if (result.bio) {
-      setBio(result.bio.bio);
+  const { completion, isLoading, handleSubmit, error } = useCompletion({
+    api: '/api/chat/generate-bio', // This is a dummy endpoint, the action is what matters
+    body: {
+      ...pet
+    },
+    onFinish: () => {
+      setHasGenerated(true);
       toast({
         title: 'New bio generated!',
         description: 'A new AI-powered bio has been created.',
       });
+    },
+    onError: (err) => {
+       toast({
+        variant: 'destructive',
+        title: 'Error generating bio',
+        description: err.message,
+      });
     }
+  });
+
+  const handleGenerate = (e: React.FormEvent<HTMLFormElement>) => {
+    // The useCompletion hook expects form data. We can pass a dummy
+    // element to trigger it since the pet data is passed in the body.
+    handleSubmit(e);
   };
   
   const handleResetBio = () => {
-    setBio(pet.description);
+    setHasGenerated(false);
   };
+
+  const displayBio = hasGenerated ? completion : pet.description;
 
   return (
     <div className="space-y-4">
       <Card>
         <CardContent className="pt-6">
-            {isLoading ? (
-                <ShimmeringLoader count={3} />
-            ) : (
-                <p className="text-lg whitespace-pre-wrap">{bio}</p>
-            )}
+            <p className="text-lg whitespace-pre-wrap">{displayBio}</p>
         </CardContent>
       </Card>
       <div className="flex gap-2">
-        <Button onClick={handleGenerateBio} disabled={isLoading}>
-            {isLoading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-                <Sparkles className="mr-2 h-4 w-4" />
-            )}
-            Generate New Bio
-        </Button>
-        {bio !== pet.description && !isLoading && (
+        <form onSubmit={handleGenerate}>
+          <Button type="submit" disabled={isLoading}>
+              {isLoading ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                  <Sparkles className="mr-2 h-4 w-4" />
+              )}
+              Generate New Bio
+          </Button>
+        </form>
+        {hasGenerated && !isLoading && (
              <Button onClick={handleResetBio} variant="outline">
                 Reset
              </Button>

@@ -1,44 +1,22 @@
+
 'use client';
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import type { Pet } from '@/lib/data';
 import { Button } from './ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
-import { Textarea } from './ui/textarea';
-import { Stethoscope, Loader2, Sparkles } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { Input } from './ui/input';
+import { Stethoscope, Sparkles, User, Bot } from 'lucide-react';
+import { useChat } from 'ai/react';
 import { askVetAssistantAction } from '@/app/actions';
-import { ShimmeringLoader } from './shimmering-loader';
 
 interface VetAssistantProps {
   pet: Pet;
 }
 
-const formSchema = z.object({
-  question: z.string().min(10, 'Your question must be at least 10 characters.'),
-});
-
 export function VetAssistant({ pet }: VetAssistantProps) {
-  const [answer, setAnswer] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      question: '',
-    },
-  });
-
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsLoading(true);
-    setAnswer('');
-    
-    const result = await askVetAssistantAction({
+  const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
+      api: '/api/chat/vet-assistant', // This is a dummy endpoint
+      body: {
         petDetails: {
             name: pet.name,
             species: pet.species,
@@ -47,21 +25,8 @@ export function VetAssistant({ pet }: VetAssistantProps) {
             history: pet.history,
             careRequirements: pet.careRequirements,
         },
-        question: values.question,
-    });
-
-    setIsLoading(false);
-
-    if (result.error) {
-      toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: result.error,
-      });
-    } else if (result.result?.answer) {
-      setAnswer(result.result.answer);
-    }
-  }
+      }
+  });
 
   return (
     <Card>
@@ -75,49 +40,47 @@ export function VetAssistant({ pet }: VetAssistantProps) {
         </div>
       </CardHeader>
       <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="question"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Your Question</FormLabel>
-                  <FormControl>
-                    <Textarea placeholder={`e.g., "What kind of food is best for a ${pet.breed}?"`} {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+        <div className="space-y-4">
+          {messages.map(m => (
+            <div key={m.id} className="flex gap-3">
+              <div className="flex-shrink-0">
+                {m.role === 'user' ? <User className="w-6 h-6 text-accent" /> : <Bot className="w-6 h-6 text-primary" />}
+              </div>
+              <div className="flex-grow">
+                <p className="whitespace-pre-wrap">{m.content}</p>
+              </div>
+            </div>
+          ))}
+          {isLoading && messages[messages.length-1].role === 'user' && (
+             <div className="flex gap-3">
+                <div className="flex-shrink-0">
+                  <Bot className="w-6 h-6 text-primary animate-pulse" />
+                </div>
+                <div className="flex-grow">
+                  <p className="whitespace-pre-wrap text-muted-foreground">Thinking...</p>
+                </div>
+              </div>
+          )}
+        </div>
+      </CardContent>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="flex items-center gap-2">
+            <Input
+                value={input}
+                onChange={handleInputChange}
+                placeholder={`e.g., "What kind of food is best for a ${pet.breed}?"`}
+                disabled={isLoading}
             />
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
                 <Sparkles className="mr-2 h-4 w-4" />
-              )}
-              Ask Question
+                Ask
             </Button>
-          </form>
-        </Form>
-        
-        {isLoading && (
-            <div className="mt-6">
-                <ShimmeringLoader count={4} />
-            </div>
+        </form>
+         {error && (
+            <p className="text-sm text-destructive mt-2">
+                An error occurred: {error.message}
+            </p>
         )}
-
-        {answer && (
-          <Card className="mt-6 bg-accent/20">
-            <CardHeader>
-              <CardTitle className="font-serif text-xl">Assistant's Answer</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="whitespace-pre-wrap">{answer}</p>
-            </CardContent>
-          </Card>
-        )}
-
       </CardContent>
     </Card>
   );
