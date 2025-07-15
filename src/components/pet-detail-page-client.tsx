@@ -29,16 +29,20 @@ export default function PetDetailPageClient({ pet }: { pet: Pet }) {
             <CarouselContent>
               {pet.photos.map((photo, index) => (
                 <CarouselItem key={index}>
-                  <Image
-                    src={photo}
-                    alt={`Photo ${index + 1} of ${pet.name}`}
-                    data-ai-hint={`${pet.species.toLowerCase()} ${pet.breed.toLowerCase()}`}
-                    width={800}
-                    height={600}
-                    className="w-full object-cover aspect-[4/3]"
-                    placeholder="blur"
-                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/wcAAgAB/epv2AAAAABJRU5ErkJggg=="
-                  />
+                  <motion.div 
+                    layoutId={index === 0 ? `pet-image-${pet.id}` : undefined}
+                    className="relative w-full aspect-[4/3]"
+                  >
+                    <Image
+                      src={photo}
+                      alt={`Photo ${index + 1} of ${pet.name}`}
+                      data-ai-hint={`${pet.species.toLowerCase()} ${pet.breed.toLowerCase()}`}
+                      fill
+                      className="w-full object-cover"
+                      placeholder="blur"
+                      blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/wcAAgAB/epv2AAAAABJRU5ErkJggg=="
+                    />
+                  </motion.div>
                 </CarouselItem>
               ))}
                <CarouselItem>

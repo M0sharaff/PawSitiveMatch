@@ -98,15 +98,17 @@ export default function PetCard({ pet }: PetCardProps) {
             style={{ transform: 'translateZ(80px)', transformStyle: 'preserve-3d' }}
           >
             <Link href={`/pets/${pet.id}`} className="block">
-              <Image
-                src={pet.photos[0]}
-                alt={`A photo of ${pet.name}`}
-                data-ai-hint={`${pet.species.toLowerCase()} ${pet.breed.toLowerCase()}`}
-                fill
-                className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
-                placeholder="blur"
-                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/wcAAgAB/epv2AAAAABJRU5ErkJggg=="
-              />
+              <motion.div layoutId={`pet-image-${pet.id}`} className="relative h-full w-full">
+                <Image
+                  src={pet.photos[0]}
+                  alt={`A photo of ${pet.name}`}
+                  data-ai-hint={`${pet.species.toLowerCase()} ${pet.breed.toLowerCase()}`}
+                  fill
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+                  placeholder="blur"
+                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/wcAAgAB/epv2AAAAABJRU5ErkJggg=="
+                />
+              </motion.div>
             </Link>
             <div className="absolute top-3 right-3 z-10" style={{ transform: 'translateZ(20px)' }}>
               <SavePetButton pet={pet} />
