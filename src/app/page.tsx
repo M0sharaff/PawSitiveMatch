@@ -33,19 +33,19 @@ const STAGGER_CONTAINER_VARIANTS = {
 export default function Home() {
   const testimonials = [
     {
-      photoURL: "https://placehold.co/100x100.png",
+      photoURL: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&h=100&fit=crop",
       userName: "Sarah L. & 'Buddy'",
       message: "The AI matching was incredible! It found us Buddy, who fits our active lifestyle perfectly. The whole process was so smooth and supportive. We couldn't be happier.",
       petName: "Buddy"
     },
     {
-      photoURL: "https://placehold.co/100x100.png",
+      photoURL: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=100&h=100&fit=crop",
       userName: "Mike D. & 'Luna'",
       message: "I was nervous about adopting, but PawsitiveMatch made it easy. The pet profiles are so detailed, and I found my calm, cuddly Luna in just a few days. Highly recommend!",
       petName: "Luna"
     },
     {
-      photoURL: "https://placehold.co/100x100.png",
+      photoURL: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&h=100&fit=crop",
       userName: "The Chen Family & 'Rocky'",
       message: "As a family with kids, finding the right pet was crucial. The 'Verified Profiles' gave us peace of mind. Rocky is the gentle, playful giant we were looking for. Thank you!",
       petName: "Rocky"
@@ -254,7 +254,7 @@ export default function Home() {
       <section className="relative w-full py-20 md:py-32 bg-gray-800 text-primary-foreground">
         <div className="absolute inset-0">
           <Image
-            src="https://placehold.co/1920x1080.png"
+            src="https://images.unsplash.com/photo-1546238232-20216dec9f72?q=80&w=1920&h=1080&fit=crop"
             alt="Happy adopted pets"
             data-ai-hint="happy pets"
             fill
@@ -333,5 +333,3 @@ function RecommendationFormSkeleton() {
     </div>
   )
 }
-
-    
