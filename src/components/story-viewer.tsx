@@ -33,10 +33,12 @@ const StoryViewer = () => {
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Safely initialize state on the client after mount
     setStories(initialPets);
+    setIsLoading(false);
   }, []);
 
   const currentPet = stories[currentStoryIndex];
@@ -54,7 +56,7 @@ const StoryViewer = () => {
   };
 
   useEffect(() => {
-    if (stories.length === 0) return;
+    if (isLoading || stories.length === 0) return;
 
     const timer = setInterval(() => {
       setProgress((prev) => {
@@ -67,9 +69,9 @@ const StoryViewer = () => {
     }, 100);
 
     return () => clearInterval(timer);
-  }, [currentStoryIndex, stories.length]);
+  }, [currentStoryIndex, stories.length, isLoading]);
 
-  if (!currentPet) {
+  if (isLoading || !currentPet) {
     return (
       <div className="flex items-center justify-center w-full h-full">
         <Loader2 className="h-10 w-10 animate-spin text-white" />
@@ -96,7 +98,7 @@ const StoryViewer = () => {
           <Image
             src={currentPet.photos[0]}
             alt={currentPet.name}
-            data-ai-hint={`${currentPet.species} ${currentPet.breed}`}
+            data-ai-hint={`${currentPet.species.toLowerCase()} ${currentPet.breed.toLowerCase()}`}
             fill
             className="object-cover"
           />
@@ -148,3 +150,5 @@ const StoryViewer = () => {
 };
 
 export default StoryViewer;
+
+    

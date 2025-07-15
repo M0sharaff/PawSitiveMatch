@@ -33,19 +33,19 @@ const STAGGER_CONTAINER_VARIANTS = {
 export default function Home() {
   const testimonials = [
     {
-      photoURL: "https://placehold.co/40x40.png",
+      photoURL: "https://placehold.co/100x100.png",
       userName: "Sarah L. & 'Buddy'",
       message: "The AI matching was incredible! It found us Buddy, who fits our active lifestyle perfectly. The whole process was so smooth and supportive. We couldn't be happier.",
       petName: "Buddy"
     },
     {
-      photoURL: "https://placehold.co/40x40.png",
+      photoURL: "https://placehold.co/100x100.png",
       userName: "Mike D. & 'Luna'",
       message: "I was nervous about adopting, but PawsitiveMatch made it easy. The pet profiles are so detailed, and I found my calm, cuddly Luna in just a few days. Highly recommend!",
       petName: "Luna"
     },
     {
-      photoURL: "https://placehold.co/40x40.png",
+      photoURL: "https://placehold.co/100x100.png",
       userName: "The Chen Family & 'Rocky'",
       message: "As a family with kids, finding the right pet was crucial. The 'Verified Profiles' gave us peace of mind. Rocky is the gentle, playful giant we were looking for. Thank you!",
       petName: "Rocky"
@@ -333,3 +333,5 @@ function RecommendationFormSkeleton() {
     </div>
   )
 }
+
+    

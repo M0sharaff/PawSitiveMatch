@@ -1,3 +1,4 @@
+
 export type Pet = {
   id: number;
   name: string;
@@ -25,7 +26,7 @@ export const pets: Pet[] = [
     size: 'Large',
     location: 'Sunnyvale, CA',
     description: 'Buddy is a friendly and energetic Golden Retriever who loves to play fetch and go on long walks.',
-    photos: ['https://placehold.co/800x600.png', 'https://placehold.co/800x600.png', 'https://placehold.co/800x600.png'],
+    photos: ['https://placehold.co/800x600.png', 'https://placehold.co/800x601.png', 'https://placehold.co/800x602.png'],
     traits: ['Friendly', 'Energetic', 'Playful', 'Loves Kids'],
     history: 'Found as a stray, Buddy has been socialized at the shelter and is now ready for a forever home.',
     careRequirements: 'Requires a home with a yard and an active family that can provide plenty of exercise.',
@@ -40,7 +41,7 @@ export const pets: Pet[] = [
     size: 'Medium',
     location: 'San Francisco, CA',
     description: 'Lucy is a calm and affectionate Siamese cat who enjoys cuddling and basking in sunbeams.',
-    photos: ['https://placehold.co/800x600.png', 'https://placehold.co/800x600.png'],
+    photos: ['https://placehold.co/800x600.png', 'https://placehold.co/801x600.png'],
     traits: ['Affectionate', 'Calm', 'Loves to Cuddle', 'Vocal'],
     history: 'Her previous owner could no longer care for her. She is litter-trained and well-behaved.',
     careRequirements: 'Prefers a quiet household. Gets along with other cats but not dogs.',
@@ -70,7 +71,7 @@ export const pets: Pet[] = [
     size: 'Small',
     location: 'Berkeley, CA',
     description: 'Milo is a curious and playful kitten full of energy and love.',
-    photos: ['https://placehold.co/800x600.png', 'https://placehold.co/800x600.png'],
+    photos: ['https://placehold.co/800x600.png', 'https://placehold.co/802x600.png'],
     traits: ['Playful', 'Curious', 'Energetic'],
     history: 'Born at the shelter, Milo is well-socialized with his siblings and people.',
     careRequirements: 'Needs a family that can keep up with his playful antics.',
@@ -113,3 +114,5 @@ export const petFilters = {
     gender: [...new Set(pets.map(p => p.gender))],
     size: [...new Set(pets.map(p => p.size))],
 }
+
+    
