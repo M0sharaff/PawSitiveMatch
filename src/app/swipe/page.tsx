@@ -1,19 +1,27 @@
 
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { pets as initialPets, type Pet } from '@/lib/data';
 import SwipeCard from '@/components/swipe-card';
 import useSavedPets from '@/hooks/use-saved-pets';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Undo } from 'lucide-react';
+import { Loader2, Undo } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export default function SwipePage() {
-  const [pets, setPets] = useState(() => [...initialPets].reverse());
+  const [pets, setPets] = useState<Pet[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { savePet } = useSavedPets();
   const { toast } = useToast();
+
+  useEffect(() => {
+    // Safely initialize state on the client after mount
+    setPets([...initialPets].reverse());
+    setIsLoading(false);
+  }, []);
+
 
   const handleSwipe = (pet: Pet, direction: 'left' | 'right') => {
     // Remove the pet from the stack
@@ -30,7 +38,9 @@ export default function SwipePage() {
   };
   
   const handleReset = () => {
+    setIsLoading(true);
     setPets([...initialPets].reverse());
+    setIsLoading(false);
   };
 
   const currentPet = useMemo(() => pets[pets.length - 1], [pets]);
@@ -49,7 +59,9 @@ export default function SwipePage() {
       </div>
 
       <div className="relative flex items-center justify-center w-full max-w-sm h-[500px]">
-        {pets.length > 0 ? (
+        {isLoading ? (
+            <Loader2 className="h-12 w-12 animate-spin text-primary" />
+        ) : pets.length > 0 ? (
           pets.map((pet, index) => (
             <SwipeCard
               key={pet.id}

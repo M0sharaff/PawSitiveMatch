@@ -1,12 +1,13 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
-import { pets, Pet } from '@/lib/data';
+import { pets as initialPets, Pet } from '@/lib/data';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from './ui/button';
-import { X, Heart, Send } from 'lucide-react';
+import { X, Heart, Send, Loader2 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Progress } from './ui/progress';
 
@@ -28,24 +29,33 @@ const storyVariants = {
 };
 
 const StoryViewer = () => {
+  const [stories, setStories] = useState<Pet[]>([]);
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [progress, setProgress] = useState(0);
 
-  const currentPet = pets[currentStoryIndex];
+  useEffect(() => {
+    // Safely initialize state on the client after mount
+    setStories(initialPets);
+  }, []);
+
+  const currentPet = stories[currentStoryIndex];
 
   const paginate = (newDirection: number) => {
+    if (stories.length === 0) return;
     setDirection(newDirection);
     setCurrentStoryIndex((prevIndex) => {
       const nextIndex = prevIndex + newDirection;
-      if (nextIndex < 0) return pets.length - 1;
-      if (nextIndex >= pets.length) return 0;
+      if (nextIndex < 0) return stories.length - 1;
+      if (nextIndex >= stories.length) return 0;
       return nextIndex;
     });
     setProgress(0); // Reset progress on manual navigation
   };
 
   useEffect(() => {
+    if (stories.length === 0) return;
+
     const timer = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
@@ -57,7 +67,15 @@ const StoryViewer = () => {
     }, 100);
 
     return () => clearInterval(timer);
-  }, [currentStoryIndex]);
+  }, [currentStoryIndex, stories.length]);
+
+  if (!currentPet) {
+    return (
+      <div className="flex items-center justify-center w-full h-full">
+        <Loader2 className="h-10 w-10 animate-spin text-white" />
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full max-w-sm h-[85vh] md:h-[90vh] rounded-2xl overflow-hidden shadow-2xl bg-black">
