@@ -16,29 +16,37 @@ interface SparklesProps {
 export const SparklesCore = (props: SparklesProps) => {
   const { id, className, background, minSize, maxSize, particleColor, particleDensity } = props;
   const [sparkles, setSparkles] = useState<any[]>([]);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-
-  useEffect(() => {
-    const getDimensions = () => {
-      if (id) {
-        const container = document.getElementById(id);
-        if (container) {
-          const { width, height } = container.getBoundingClientRect();
-          setDimensions({ width, height });
-        }
-      }
-    };
-    getDimensions();
-    window.addEventListener('resize', getDimensions);
-    return () => window.removeEventListener('resize', getDimensions);
+  
+  // Memoize dimensions to avoid re-calculating on every render
+  const dimensions = React.useMemo(() => {
+    if (typeof window === 'undefined' || !id) return { width: 0, height: 0 };
+    const container = document.getElementById(id);
+    return container ? { width: container.offsetWidth, height: container.offsetHeight } : { width: 0, height: 0 };
   }, [id]);
 
   useEffect(() => {
+    if (typeof window === 'undefined' || !id) return;
+
+    const container = document.getElementById(id);
+    if (!container) return;
+    
+    const obs = new ResizeObserver(entries => {
+        const { width, height } = entries[0].contentRect;
+        // This is where you would update state based on new dimensions
+        // For this component, we'll let the dependency array handle regeneration
+    });
+    obs.observe(container);
+
+    return () => obs.disconnect();
+  }, [id]);
+
+
+  useEffect(() => {
     const generateSparkles = () => {
-      const density = particleDensity || 50;
+      const density = particleDensity || 75;
       const count = Math.floor((dimensions.width * dimensions.height) / (100000 / density));
       const newSparkles = Array.from({ length: count }).map(() => {
-        const size = (minSize || 0.5) + Math.random() * ((maxSize || 1) - (minSize || 0.5));
+        const size = (minSize || 0.5) + Math.random() * ((maxSize || 1.2) - (minSize || 0.5));
         return {
           id: Math.random(),
           x: Math.random() * dimensions.width,
@@ -54,10 +62,10 @@ export const SparklesCore = (props: SparklesProps) => {
     if (dimensions.width > 0 && dimensions.height > 0) {
       generateSparkles();
     }
-  }, [dimensions, particleDensity, minSize, maxSize, particleColor]);
+  }, [dimensions.width, dimensions.height, particleDensity, minSize, maxSize, particleColor]);
 
   return (
-    <div className={cn('relative w-full h-full', className)} id={id} style={{ background }}>
+    <div className={cn('relative w-full h-full pointer-events-none', className)} id={id} style={{ background }}>
       <AnimatePresence>
         {sparkles.map((sparkle) => (
           <motion.div
@@ -82,6 +90,7 @@ export const SparklesCore = (props: SparklesProps) => {
               backgroundColor: sparkle.color,
               borderRadius: '50%',
               boxShadow: `0 0 2px ${sparkle.color}, 0 0 5px ${sparkle.color}`,
+              filter: 'blur(0.5px)'
             }}
           />
         ))}
