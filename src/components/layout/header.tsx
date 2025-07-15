@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/sheet';
 import { useState } from 'react';
 import { ThemeSwitcher } from '../theme-switcher';
+import { useToast } from '@/hooks/use-toast';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -26,6 +27,14 @@ const navLinks = [
 export default function Header() {
   const pathname = usePathname();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const { toast } = useToast();
+
+  const handleDonateClick = () => {
+    toast({
+      title: 'Coming Soon!',
+      description: 'The donation feature is not yet implemented.',
+    });
+  };
 
   return (
     <header className="bg-background/80 backdrop-blur-lg sticky top-0 z-40 border-b">
@@ -56,7 +65,7 @@ export default function Header() {
 
         <div className="flex-1 flex justify-end items-center gap-2">
            <ThemeSwitcher />
-           <Button>
+           <Button onClick={handleDonateClick}>
               <Heart className="mr-2 h-4 w-4"/>
               Donate
             </Button>
