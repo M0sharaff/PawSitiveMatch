@@ -1,4 +1,4 @@
-// src/app/pets/page.tsx
+
 import { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import PetsPageClient from '@/components/pets-page-client';
