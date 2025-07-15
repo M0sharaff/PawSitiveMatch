@@ -25,7 +25,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Heart } from 'lucide-react';
 
 const formSchema = z.object({
@@ -53,14 +53,20 @@ export function InquiryForm({ petName }: InquiryFormProps) {
     },
   });
 
+  // Reset form state when the dialog is closed
+  useEffect(() => {
+    if (!open) {
+      form.reset();
+    }
+  }, [open, form]);
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log('Adoption Inquiry:', values);
     toast({
       title: 'Inquiry Sent!',
       description: `Thank you for your interest in ${petName}. We will be in touch soon.`,
     });
-    form.reset();
-    setOpen(false);
+    setOpen(false); // This will trigger the useEffect to reset the form
   }
 
   return (
