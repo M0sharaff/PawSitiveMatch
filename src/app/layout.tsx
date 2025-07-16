@@ -11,6 +11,7 @@ import { Alegreya, Inter } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import { AnimatePresence, motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import BottomNav from '@/components/layout/bottom-nav';
 
 const alegreya = Alegreya({ 
   subsets: ['latin'], 
@@ -59,11 +60,12 @@ export default function RootLayout({
               transition={{ duration: 0.3, ease: 'easeInOut' }}
               className="flex-grow"
             >
-              <main className="flex-grow">{children}</main>
+              <main className="flex-grow pb-20 md:pb-0">{children}</main>
             </motion.div>
           </AnimatePresence>
           <Footer />
           <Toaster />
+          <BottomNav />
         </ThemeProvider>
       </body>
     </html>
