@@ -79,7 +79,7 @@ export const pets: Pet[] = [
     location: 'Berkeley, CA',
     description: 'Milo is a curious and playful kitten full of energy and love.',
     photos: [
-      'https://images.unsplash.com/photo-1595433707802-6b2626ef1991?q=80&w=800&h=600&fit=crop', 
+      'https://images.pexels.com/photos/7788649/pexels-photo-7788649.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', 
       'https://images.unsplash.com/photo-1615789591457-74a63395c990?q=80&w=800&h=600&fit=crop'
     ],
     traits: ['Playful', 'Curious', 'Energetic'],
