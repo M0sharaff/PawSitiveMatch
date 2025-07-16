@@ -27,9 +27,9 @@ export const pets: Pet[] = [
     location: 'Sunnyvale, CA',
     description: 'Buddy is a friendly and energetic Golden Retriever who loves to play fetch and go on long walks.',
     photos: [
-      'https://images.unsplash.com/photo-1590212151088-e24a75345d31?q=80&w=800&h=600&fit=crop', 
-      'https://images.unsplash.com/photo-1611250282119-94c61e479a37?q=80&w=800&h=600&fit=crop', 
-      'https://images.unsplash.com/photo-1548679913-9e4a3b054a4f?q=80&w=800&h=600&fit=crop'
+      'https://images.unsplash.com/photo-1568572933382-74d440642117?q=80&w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1548679913-9e4a3b054a4f?q=80&w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1589963928139-380d1933568c?q=80&w=800&h=600&fit=crop'
     ],
     traits: ['Friendly', 'Energetic', 'Playful', 'Loves Kids'],
     history: 'Found as a stray, Buddy has been socialized at the shelter and is now ready for a forever home.',
@@ -46,8 +46,8 @@ export const pets: Pet[] = [
     location: 'San Francisco, CA',
     description: 'Lucy is a calm and affectionate Siamese cat who enjoys cuddling and basking in sunbeams.',
     photos: [
-      'https://images.unsplash.com/photo-1596223522204-f1489117650f?q=80&w=800&h=600&fit=crop', 
-      'https://images.unsplash.com/photo-1604430459992-a1b9f551a2a4?q=80&w=800&h=600&fit=crop'
+      'https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?q=80&w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1574158622682-e40e69841006?q=80&w=800&h=600&fit=crop'
     ],
     traits: ['Affectionate', 'Calm', 'Loves to Cuddle', 'Vocal'],
     history: 'Her previous owner could no longer care for her. She is litter-trained and well-behaved.',
@@ -63,7 +63,7 @@ export const pets: Pet[] = [
     size: 'Large',
     location: 'Oakland, CA',
     description: 'Max is a loyal and intelligent German Shepherd. He is highly trainable and eager to please.',
-    photos: ['https://images.unsplash.com/photo-1568572933382-74d440642117?q=80&w=800&h=600&fit=crop'],
+    photos: ['https://images.unsplash.com/photo-1631186176390-c2ef4085ef72?q=80&w=800&h=600&fit=crop'],
     traits: ['Loyal', 'Intelligent', 'Trainable', 'Protective'],
     history: 'Max was surrendered by his owner due to a change in living situation. He knows basic commands.',
     careRequirements: 'Needs an experienced owner who can provide firm guidance and continued training.',
@@ -96,7 +96,7 @@ export const pets: Pet[] = [
     size: 'Medium',
     location: 'Palo Alto, CA',
     description: 'Daisy is a sweet and gentle senior Beagle looking for a comfortable home to spend her golden years.',
-    photos: ['https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=800&h=600&fit=crop'],
+    photos: ['https://images.unsplash.com/photo-1505628346881-b72b27e84530?q=80&w=800&h=600&fit=crop'],
     traits: ['Gentle', 'Sweet-tempered', 'Loves Naps'],
     history: 'Her owner passed away. She is in good health for her age.',
     careRequirements: 'A quiet home with a soft bed is all she needs. Enjoys short, leisurely walks.',
