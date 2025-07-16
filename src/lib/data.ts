@@ -99,7 +99,7 @@ export const pets: Pet[] = [
     location: 'Palo Alto, CA',
     description: 'Daisy is a sweet and gentle senior Beagle looking for a comfortable home to spend her golden years. She loves short walks and long naps.',
     photos: [
-        'https://images.unsplash.com/photo-1546487553-53d40a831e54?q=80&w=800&h=600&auto=format&fit=crop'
+        'https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8cGV0fGVufDB8fHx8MTc1MjY2OTQ1NXww&ixlib=rb-4.1.0&q=80&w=1080'
     ],
     traits: ['Gentle', 'Sweet-tempered', 'Loves Naps', 'Quiet'],
     history: 'Her owner passed away. She is in good health for her age.',
