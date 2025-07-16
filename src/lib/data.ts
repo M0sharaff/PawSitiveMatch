@@ -27,7 +27,7 @@ export const pets: Pet[] = [
     location: 'Sunnyvale, CA',
     description: 'Buddy is a friendly and energetic Golden Retriever who loves to play fetch and go on long walks. He is great with kids and other dogs.',
     photos: [
-      'https://images.unsplash.com/photo-1611250282138-c9aa1b886164?q=80&w=800&h=600&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1450778869180-41d0601e046e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwZXR8ZW58MHx8fHwxNzUyNjY5NDU1fDA&ixlib=rb-4.1.0&q=80&w=1080',
       'https://images.unsplash.com/photo-1589965716319-4a041b58fa8a?q=80&w=800&h=600&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1568640347023-a616a30bc3bd?q=80&w=800&h=600&auto=format&fit=crop'
     ],
