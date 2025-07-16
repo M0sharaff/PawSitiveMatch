@@ -8,7 +8,7 @@ import { pets } from "@/lib/data";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Search, MessageSquare, Heart, User } from "lucide-react";
-import React, { Suspense } from "react";
+import React from 'react';
 import { motion } from "framer-motion";
 import { HeroCarousel } from "@/components/hero-carousel";
 import PetCard from "@/components/pet-card";
@@ -66,10 +66,10 @@ export default function Home() {
             className="flex flex-col justify-center space-y-6"
             variants={STAGGER_CONTAINER_VARIANTS}
           >
-            <motion.h1 variants={FADE_IN_VARIANTS} className="text-5xl md:text-7xl font-bold tracking-tighter text-primary font-serif">
+            <motion.h1 variants={FADE_IN_VARIANTS} className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter text-primary font-serif">
               Find Your Forever Friend.
             </motion.h1>
-            <motion.p variants={FADE_IN_VARIANTS} className="max-w-[600px] text-foreground/80 md:text-xl">
+            <motion.p variants={FADE_IN_VARIANTS} className="max-w-[600px] text-lg text-foreground/80 md:text-xl">
               Discover the joy of pet adoption. We use smart technology and a whole lot of heart to connect wonderful pets with loving homes. Begin your journey to unconditional love today.
             </motion.p>
             <motion.div variants={FADE_IN_VARIANTS} className="flex flex-col sm:flex-row gap-4">
@@ -147,9 +147,9 @@ export default function Home() {
             >
               <Card className="shadow-lg">
                 <CardContent className="p-6 md:p-8">
-                  <Suspense fallback={<RecommendationFormSkeleton />}>
+                  <React.Suspense fallback={<RecommendationFormSkeleton />}>
                     <RecommendationForm />
-                  </Suspense>
+                  </React.Suspense>
                 </CardContent>
               </Card>
             </motion.div>
@@ -333,3 +333,7 @@ function RecommendationFormSkeleton() {
     </div>
   )
 }
+
+    
+
+    

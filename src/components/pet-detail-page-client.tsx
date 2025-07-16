@@ -18,14 +18,14 @@ import { motion } from 'framer-motion';
 export default function PetDetailPageClient({ pet }: { pet: Pet }) {
   return (
     <motion.div 
-      className="container mx-auto px-4 md:px-6 py-12"
+      className="container mx-auto px-4 md:px-6 py-8 md:py-12"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
       <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
         <div>
-          <Carousel className="rounded-lg overflow-hidden shadow-lg">
+          <Carousel className="rounded-lg overflow-hidden shadow-lg sticky top-24">
             <CarouselContent>
               {pet.photos.map((photo, index) => (
                 <CarouselItem key={index}>
@@ -84,7 +84,7 @@ export default function PetDetailPageClient({ pet }: { pet: Pet }) {
             <CardHeader>
                 <CardTitle className="font-serif text-2xl text-primary">About {pet.name}</CardTitle>
             </CardHeader>
-            <CardContent className="grid md:grid-cols-2 gap-8">
+            <CardContent className="flex flex-col md:grid md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                     <div className="flex items-center gap-3">
                         <Heart className="w-6 h-6 text-accent" />
@@ -120,3 +120,5 @@ export default function PetDetailPageClient({ pet }: { pet: Pet }) {
     </motion.div>
   );
 }
+
+    
