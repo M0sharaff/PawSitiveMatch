@@ -27,7 +27,7 @@ export const pets: Pet[] = [
     location: 'Sunnyvale, CA',
     description: 'Buddy is a friendly and energetic Golden Retriever who loves to play fetch and go on long walks.',
     photos: [
-      'https://images.unsplash.com/photo-1548679913-9e4a3b054a4f?q=80&w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1740235452766-ef4fe170b63b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxkb2clMjBnb2xkZW4lMjByZXRyaWV2ZXJ8ZW58MHx8fHwxNzUyNjY1OTk3fDA&ixlib=rb-4.1.0&q=80&w=1080',
       'https://images.unsplash.com/photo-1589963928139-380d1933568c?q=80&w=800&h=600&fit=crop',
       'https://images.unsplash.com/photo-1568572933382-74d440642117?q=80&w=800&h=600&fit=crop'
     ],
@@ -46,7 +46,7 @@ export const pets: Pet[] = [
     location: 'San Francisco, CA',
     description: 'Lucy is a calm and affectionate Siamese cat who enjoys cuddling and basking in sunbeams.',
     photos: [
-      'https://images.unsplash.com/photo-1574158622682-e40e69841006?q=80&w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1669095658634-2a5d9fae6d64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y2F0JTIwc2lhbWVzZXxlbnwwfHx8fDE3NTI2NjU5OTd8MA&ixlib=rb-4.1.0&q=80&w=1080',
       'https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?q=80&w=800&h=600&fit=crop'
     ],
     traits: ['Affectionate', 'Calm', 'Loves to Cuddle', 'Vocal'],
@@ -63,7 +63,7 @@ export const pets: Pet[] = [
     size: 'Large',
     location: 'Oakland, CA',
     description: 'Max is a loyal and intelligent German Shepherd. He is highly trainable and eager to please.',
-    photos: ['https://images.unsplash.com/photo-1567843421389-91b945ab9c50?q=80&w=800&h=600&fit=crop'],
+    photos: ['https://images.unsplash.com/photo-1620009130148-64da1612e86d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkb2clMjBnZXJtYW4lMjBzaGVwaGVyZHxlbnwwfHx8fDE3NTI2NjU5OTh8MA&ixlib=rb-4.1.0&q=80&w=1080'],
     traits: ['Loyal', 'Intelligent', 'Trainable', 'Protective'],
     history: 'Max was surrendered by his owner due to a change in living situation. He knows basic commands.',
     careRequirements: 'Needs an experienced owner who can provide firm guidance and continued training.',
