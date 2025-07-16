@@ -27,7 +27,7 @@ export const pets: Pet[] = [
     location: 'Sunnyvale, CA',
     description: 'Buddy is a friendly and energetic Golden Retriever who loves to play fetch and go on long walks. He is great with kids and other dogs.',
     photos: [
-      'https://images.unsplash.com/photo-1590212151088-e24a75345d31?q=80&w=800&h=600&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1611250282138-c9aa1b886164?q=80&w=800&h=600&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1589965716319-4a041b58fa8a?q=80&w=800&h=600&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1568640347023-a616a30bc3bd?q=80&w=800&h=600&auto=format&fit=crop'
     ],
@@ -46,7 +46,7 @@ export const pets: Pet[] = [
     location: 'San Francisco, CA',
     description: 'Lucy is a calm and affectionate Siamese cat who enjoys cuddling and basking in sunbeams. She has beautiful blue eyes and a sleek coat.',
     photos: [
-      'https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?q=80&w=800&h=600&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1494256997604-768d1f6089b3?q=80&w=800&h=600&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?q=80&w=800&h=600&auto=format&fit=crop'
     ],
     traits: ['Affectionate', 'Calm', 'Loves to Cuddle', 'Vocal'],
@@ -64,7 +64,7 @@ export const pets: Pet[] = [
     location: 'Oakland, CA',
     description: 'Max is a loyal and intelligent German Shepherd. He is highly trainable and eager to please, making him a perfect companion for an experienced owner.',
     photos: [
-        'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=800&h=600&auto=format&fit=crop'
+        'https://images.unsplash.com/photo-1565799139534-318e38a29b4d?q=80&w=800&h=600&auto=format&fit=crop'
     ],
     traits: ['Loyal', 'Intelligent', 'Trainable', 'Protective'],
     history: 'Max was surrendered by his owner due to a change in living situation. He knows basic commands.',
@@ -99,7 +99,7 @@ export const pets: Pet[] = [
     location: 'Palo Alto, CA',
     description: 'Daisy is a sweet and gentle senior Beagle looking for a comfortable home to spend her golden years. She loves short walks and long naps.',
     photos: [
-        'https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=800&h=600&auto=format&fit=crop'
+        'https://images.unsplash.com/photo-1546487553-53d40a831e54?q=80&w=800&h=600&auto=format&fit=crop'
     ],
     traits: ['Gentle', 'Sweet-tempered', 'Loves Naps', 'Quiet'],
     history: 'Her owner passed away. She is in good health for her age.',
