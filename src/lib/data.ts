@@ -64,7 +64,7 @@ export const pets: Pet[] = [
     location: 'Oakland, CA',
     description: 'Max is a loyal and intelligent German Shepherd. He is highly trainable and eager to please, making him a perfect companion for an experienced owner.',
     photos: [
-        'https://images.unsplash.com/photo-1565799139534-318e38a29b4d?q=80&w=800&h=600&auto=format&fit=crop'
+        'https://images.unsplash.com/photo-1415369629372-26f2fe60c467?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwZXR8ZW58MHx8fHwxNzUyNjY5NDU1fDA&ixlib=rb-4.1.0&q=80&w=1080'
     ],
     traits: ['Loyal', 'Intelligent', 'Trainable', 'Protective'],
     history: 'Max was surrendered by his owner due to a change in living situation. He knows basic commands.',
