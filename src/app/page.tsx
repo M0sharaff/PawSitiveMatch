@@ -333,7 +333,3 @@ function RecommendationFormSkeleton() {
     </div>
   )
 }
-
-    
-
-    
