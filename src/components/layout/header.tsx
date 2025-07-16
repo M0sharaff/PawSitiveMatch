@@ -40,19 +40,22 @@ export default function Header() {
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                'flex items-center gap-2 text-foreground/70 transition-colors hover:text-primary',
-                pathname === link.href && 'text-primary font-semibold'
-              )}
-            >
-              {link.icon && <link.icon className="h-4 w-4" />}
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = link.href === '/' ? pathname === link.href : pathname.startsWith(link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  'flex items-center gap-2 text-foreground/70 transition-colors hover:text-primary',
+                  isActive && 'text-primary font-semibold'
+                )}
+              >
+                {link.icon && <link.icon className="h-4 w-4" />}
+                {link.label}
+              </Link>
+            )
+          })}
         </nav>
 
         <div className="flex-1 flex justify-end items-center gap-2">

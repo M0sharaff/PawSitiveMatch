@@ -27,9 +27,9 @@ const BottomNav = () => {
     >
       <nav className="flex justify-around items-center h-full">
         {navItems.map((item) => {
-          const isActive = pathname === item.href;
+          const isActive = item.href === '/' ? pathname === item.href : pathname.startsWith(item.href);
           return (
-            <Link key={item.href} href={item.href} className="flex-1 flex flex-col items-center justify-center h-full">
+            <Link key={item.href} href={item.href} className="flex-1 flex flex-col items-center justify-center h-full pt-1">
               <item.icon
                 className={cn(
                   'h-6 w-6 transition-colors',

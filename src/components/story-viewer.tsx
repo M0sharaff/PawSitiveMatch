@@ -100,6 +100,7 @@ const StoryViewer = () => {
             alt={currentPet.name}
             data-ai-hint={`${currentPet.species.toLowerCase()} ${currentPet.breed.toLowerCase()}`}
             fill
+            sizes="100vw"
             className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
@@ -115,7 +116,7 @@ const StoryViewer = () => {
         <Progress value={progress} className="h-1 bg-white/30" />
         <div className="flex items-center gap-3 mt-3">
           <Avatar>
-            <AvatarImage src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyLjM5NCAxMi44NzVDMTEuMjA2IDEyLjAyNSAxMC4xMDYgMTAuODg3NSA5Ljg5NCA5LjYzNzVDOS42MDIgOC4xMTI1IDEwLjQzNiA2Ljg3NSAxMi4wMzQgNi44NzVDMTMuNzQ0IDYuODc1IDE0LjU0NCA4LjEyNSAxNC4yNjQgOS42NzVMMTIuMzk0IDEyLjg3NVoiIGZpbGw9IiM4MDgwMDAiLz4KPHBhdGggZD0iTTkgMTMuNUM3LjY1IDEzLjUgNi43NSAxNC40IDYuNzUgMTUuNTI1QzYuNzUgMTYuNjI1IDcuNSAxNy41NjI1IDguNjM4IDE3LjU2MjVDMTAuMDAxIDE3LjU2MjUgMTAuNzYzIDE2LjYyNSAxMC43NjMgMTUuNTI1QzEwLjc2MyAxNC40IDEwLjM1IDEzLjUgOSAxMy41WiIgZmlsbD0iIzgwODAwMCIvPgo8cGF0aCBkPSJNMTUgMTMuNUMxMy42NSAxMy41IDEyLjY1IDE0LjQgMTIuNjUgMTUuNTI1QzEyLjY1IDE2LjYyNSAxMy40MTMgMTcuNTYyNSAxNC43NjMgMTcuNTYyNUMxNi4yMjYgMTcuNTYyNSAxNy4xODggMTYuNjI1IDE3LjE4OCAxNS41MjVDMTcuMTg4IDE0LjQgMTYuMzUgMTMuNSAxNSAxMy41WiIgZmlsbD0iIzgwODAwMCIvPgo8cGF0aCBkPSJNNC43MjUgMTAuMjVDMy4zNzUgMTAuMjUgMi4yNSAxMS4xODc1IDIuMjUgMTIuNDA2QzIuMjUgMTMuNjU2IDMuMTg4IDE0LjY1NiA0LjUgMTQuNjU2QzUuOTYyIDE0LjY1NiA2Ljk3NSAxMy42NTYgNi45NzUgMTIuNDA2QzYuOTc1IDExLjE4NzUgNS42MjUgMTAuMjUgNC43MjUgMTAuMjVaIiBmaWxsPSIjODA4MDAwIi8+CjxwYXRoIGQ9Ik0xOS4yNzUgMTAuMjVDMTguMzc1IDEwLjI1IDE3LjI1IDExLjE1NiAxNy4yNSAxMi40MDZDMTcuMjUgMTMuNjU2IDE4LjE4OCAxNC42NTYgMTkuNSAxNC42NTZDDIwLjgxMiAxNC42NTYgMjEuNzUgMTMuNjU2IDIxLjc1IDEyLjQwNkMyMS43NSAxMS4xNTYgMjAuMTc1IDEwLjI1IDE5LjI3NSAxMC4yNVoiIGZpbGw9IiM4MDgwMDAiLz4KPC9zdmc+Cg==" alt="PawsitiveMatch Logo" data-ai-hint="logo paw" />
+            <AvatarImage src="/pawsitive-logo.png" alt="PawsitiveMatch Logo" data-ai-hint="logo paw" />
             <AvatarFallback>PM</AvatarFallback>
           </Avatar>
           <h3 className="font-bold text-white text-shadow">{currentPet.name}</h3>
@@ -130,7 +131,7 @@ const StoryViewer = () => {
 
       {/* Footer */}
       <div className="absolute bottom-0 left-0 right-0 p-4 z-30 text-white">
-        <p className="text-shadow-lg mb-4">{currentPet.description}</p>
+        <p className="text-shadow-lg mb-4 line-clamp-3">{currentPet.description}</p>
         <div className="flex items-center gap-3">
           <Link href={`/pets/${currentPet.id}`} className="flex-grow">
             <Button variant="secondary" className="w-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/30">

@@ -13,13 +13,13 @@
     --popover: 48 33% 98%;
     --popover-foreground: 24 9.8% 10%;
     
-    --primary: 60 80% 35%; /* Warm Olive Green */
-    --primary-foreground: 60 9.8% 95%;
+    --primary: 38 92% 50%; /* Warm Gold */
+    --primary-foreground: 38 100% 10%;
 
-    --secondary: 15 25% 95%; /* Lighter Terracotta */
+    --secondary: 48 33% 88%; /* Lighter Beige */
     --secondary-foreground: 24 9.8% 10%;
     
-    --muted: 15 25% 95%;
+    --muted: 48 33% 92%;
     --muted-foreground: 24 9.8% 40%;
     
     --accent: 15 84% 65%; /* Terracotta */
@@ -30,7 +30,7 @@
     
     --border: 48 33% 85%;
     --input: 48 33% 88%;
-    --ring: 60 80% 35%;
+    --ring: 38 92% 50%;
     
     --radius: 0.5rem;
   }
@@ -42,19 +42,19 @@
     --card-foreground: 0 0% 98%;
     --popover: 24 9.8% 10%;
     --popover-foreground: 0 0% 98%;
-    --primary: 60 80% 45%;
-    --primary-foreground: 60 9.8% 10%;
-    --secondary: 15 25% 15%;
+    --primary: 40 95% 55%;
+    --primary-foreground: 40 100% 15%;
+    --secondary: 24 5% 20%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 15 25% 15%;
+    --muted: 24 5% 20%;
     --muted-foreground: 0 0% 63.9%;
     --accent: 15 84% 70%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 15 25% 25%;
-    --input: 15 25% 22%;
-    --ring: 60 80% 45%;
+    --border: 24 5% 25%;
+    --input: 24 5% 22%;
+    --ring: 40 95% 55%;
   }
 
   .theme-forest {
