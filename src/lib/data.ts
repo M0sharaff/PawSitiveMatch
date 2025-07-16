@@ -27,9 +27,9 @@ export const pets: Pet[] = [
     location: 'Sunnyvale, CA',
     description: 'Buddy is a friendly and energetic Golden Retriever who loves to play fetch and go on long walks.',
     photos: [
-      'https://images.unsplash.com/photo-1740235452766-ef4fe170b63b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxkb2clMjBnb2xkZW4lMjByZXRyaWV2ZXJ8ZW58MHx8fHwxNzUyNjY1OTk3fDA&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1589963928139-380d1933568c?q=80&w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1568572933382-74d440642117?q=80&w=800&h=600&fit=crop'
+      'https://placehold.co/800x600.png',
+      'https://placehold.co/800x601.png',
+      'https://placehold.co/800x602.png'
     ],
     traits: ['Friendly', 'Energetic', 'Playful', 'Loves Kids'],
     history: 'Found as a stray, Buddy has been socialized at the shelter and is now ready for a forever home.',
@@ -46,8 +46,8 @@ export const pets: Pet[] = [
     location: 'San Francisco, CA',
     description: 'Lucy is a calm and affectionate Siamese cat who enjoys cuddling and basking in sunbeams.',
     photos: [
-      'https://images.unsplash.com/photo-1669095658634-2a5d9fae6d64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y2F0JTIwc2lhbWVzZXxlbnwwfHx8fDE3NTI2NjU5OTd8MA&ixlib=rb-4.1.0&q=80&w=1080',
-      'https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?q=80&w=800&h=600&fit=crop'
+      'https://placehold.co/800x600.png',
+      'https://placehold.co/801x600.png'
     ],
     traits: ['Affectionate', 'Calm', 'Loves to Cuddle', 'Vocal'],
     history: 'Her previous owner could no longer care for her. She is litter-trained and well-behaved.',
@@ -63,7 +63,7 @@ export const pets: Pet[] = [
     size: 'Large',
     location: 'Oakland, CA',
     description: 'Max is a loyal and intelligent German Shepherd. He is highly trainable and eager to please.',
-    photos: ['https://images.unsplash.com/photo-1620009130148-64da1612e86d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkb2clMjBnZXJtYW4lMjBzaGVwaGVyZHxlbnwwfHx8fDE3NTI2NjU5OTh8MA&ixlib=rb-4.1.0&q=80&w=1080'],
+    photos: ['https://placehold.co/800x600.png'],
     traits: ['Loyal', 'Intelligent', 'Trainable', 'Protective'],
     history: 'Max was surrendered by his owner due to a change in living situation. He knows basic commands.',
     careRequirements: 'Needs an experienced owner who can provide firm guidance and continued training.',
@@ -80,7 +80,7 @@ export const pets: Pet[] = [
     description: 'Milo is a curious and playful kitten full of energy and love.',
     photos: [
       'https://images.pexels.com/photos/7788649/pexels-photo-7788649.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', 
-      'https://images.unsplash.com/photo-1615789591457-74a63395c990?q=80&w=800&h=600&fit=crop'
+      'https://placehold.co/802x600.png'
     ],
     traits: ['Playful', 'Curious', 'Energetic'],
     history: 'Born at the shelter, Milo is well-socialized with his siblings and people.',
@@ -96,7 +96,7 @@ export const pets: Pet[] = [
     size: 'Medium',
     location: 'Palo Alto, CA',
     description: 'Daisy is a sweet and gentle senior Beagle looking for a comfortable home to spend her golden years.',
-    photos: ['https://images.unsplash.com/photo-1505628346881-b72b27e84530?q=80&w=800&h=600&fit=crop'],
+    photos: ['https://placehold.co/800x600.png'],
     traits: ['Gentle', 'Sweet-tempered', 'Loves Naps'],
     history: 'Her owner passed away. She is in good health for her age.',
     careRequirements: 'A quiet home with a soft bed is all she needs. Enjoys short, leisurely walks.',
@@ -111,7 +111,7 @@ export const pets: Pet[] = [
     size: 'Small',
     location: 'San Jose, CA',
     description: 'Kiwi is a cheerful and chatty parakeet that loves to sing and interact with people.',
-    photos: ['https://images.unsplash.com/photo-1552728089-57bdde3e70aa?q=80&w=800&h=600&fit=crop'],
+    photos: ['https://placehold.co/800x600.png'],
     traits: ['Chatty', 'Cheerful', 'Social'],
     history: 'Looking for a home that can give him more attention.',
     careRequirements: 'Requires a spacious cage and daily interaction.',
