@@ -46,7 +46,7 @@ export const pets: Pet[] = [
     location: 'San Francisco, CA',
     description: 'Lucy is a calm and affectionate Siamese cat who enjoys cuddling and basking in sunbeams. She has beautiful blue eyes and a sleek coat.',
     photos: [
-      'https://images.unsplash.com/photo-1494256997604-768d1f6089b3?q=80&w=800&h=600&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXR8ZW58MHx8fHwxNzUyNjU5OTY0fDA&ixlib=rb-4.1.0&q=80&w=1080',
       'https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?q=80&w=800&h=600&auto=format&fit=crop'
     ],
     traits: ['Affectionate', 'Calm', 'Loves to Cuddle', 'Vocal'],
